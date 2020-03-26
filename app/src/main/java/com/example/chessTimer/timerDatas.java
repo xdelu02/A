@@ -32,14 +32,14 @@ public class timerDatas extends AppCompatActivity {
         String minuteBlack = "10";
         String secondBlack = "0";
 
-        EditText nW1EditText = (EditText) findViewById(R.id.nameWhite);
-        EditText hW1EditText = (EditText) findViewById(R.id.hourWhite);
-        EditText mW1EditText = (EditText) findViewById(R.id.minuteWhite);
-        EditText sW1EditText = (EditText) findViewById(R.id.secondWhite);
-        EditText nB1EditText = (EditText) findViewById(R.id.nameBlack);
-        EditText hB1EditText = (EditText) findViewById(R.id.hourBlack);
-        EditText mB1EditText = (EditText) findViewById(R.id.minuteBlack);
-        EditText sB1EditText = (EditText) findViewById(R.id.secondBlack);
+        EditText nW1EditText = findViewById(R.id.nameWhite);
+        EditText hW1EditText = findViewById(R.id.hourWhite);
+        EditText mW1EditText = findViewById(R.id.minuteWhite);
+        EditText sW1EditText = findViewById(R.id.secondWhite);
+        EditText nB1EditText = findViewById(R.id.nameBlack);
+        EditText hB1EditText = findViewById(R.id.hourBlack);
+        EditText mB1EditText = findViewById(R.id.minuteBlack);
+        EditText sB1EditText = findViewById(R.id.secondBlack);
 
         if(!nW1EditText.getText().toString().equals(""))
             nameWhite = nW1EditText.getText().toString();
