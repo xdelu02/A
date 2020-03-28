@@ -8,12 +8,12 @@
 
     <Button
         android:id="@+id/topBtn"
-        android:layout_width="322dp"
-        android:layout_height="222dp"
+        android:layout_width="332dp"
+        android:layout_height="248dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="451dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="463dp"
         android:text="00:00"
         android:textColor="@android:color/black"
         android:textSize="60sp" />
@@ -24,9 +24,19 @@
         android:layout_height="248dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="57dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="76dp"
         android:text="00:00"
         android:textColor="@android:color/black"
         android:textSize="60sp" />
+
+    <Button
+        android:id="@+id/resetBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="173dp"
+        android:layout_marginBottom="373dp"
+        android:text="Reset" />
 </RelativeLayout>
