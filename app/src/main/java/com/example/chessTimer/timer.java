@@ -6,12 +6,8 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class timer extends AppCompatActivity {
 
@@ -22,24 +18,20 @@ public class timer extends AppCompatActivity {
     private Button resetBtn;
     private CountDownTimer top_countDownTimer;
     private CountDownTimer bottom_countDownTimer;
-    private boolean isTopTimerRunning;
-    private boolean isBottomTimerRunning;
     private long top_timeLeft = top_START_TIME;
     private long bottom_timeLeft = bottom_START_TIME;
     private int contaMosse;
-
-/*  int wMin = Integer.parseInt(Objects.requireNonNull(getIntent().getExtras().getString("com.example.chessTimer.minuteWhite")));
-    int wSec = Integer.parseInt(Objects.requireNonNull(getIntent().getExtras().getString("com.example.chessTimer.secondWhite")));
-    int bMin = Integer.parseInt(Objects.requireNonNull(getIntent().getExtras().getString("com.example.chessTimer.minuteBlack")));
-    int bSec = Integer.parseInt(Objects.requireNonNull(getIntent().getExtras().getString("com.example.chessTimer.secondBlack")));*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
-        isTopTimerRunning = false;
-        isBottomTimerRunning = false;
+        //int bottomMin = Integer.parseInt(getIntent().getExtras().getString("com.example.chessTimer.minuteWhite"));
+/*      int bottomSec = Integer.parseInt(getIntent().getExtras().getString("com.example.chessTimer.secondWhite"));
+        int topMin = Integer.parseInt(getIntent().getExtras().getString("com.example.chessTimer.minuteBlack"));
+        int topSec = Integer.parseInt(getIntent().getExtras().getString("com.example.chessTimer.secondBlack"));*/
+
         contaMosse = 0;
 
         resetBtn = findViewById(R.id.resetBtn);
@@ -55,6 +47,7 @@ public class timer extends AppCompatActivity {
                 startTimer("bottom");
                 topBtn.setClickable(false);
                 bottomBtn.setClickable(true);
+                ++contaMosse;
             }
         });
 
@@ -65,6 +58,7 @@ public class timer extends AppCompatActivity {
                 startTimer("top");
                 bottomBtn.setClickable(false);
                 topBtn.setClickable(true);
+                ++contaMosse;
             }
         });
 
@@ -89,12 +83,10 @@ public class timer extends AppCompatActivity {
 
                 @Override
                 public void onFinish() {
-                    isTopTimerRunning = false;
-                    topBtn.setText("A");
+                    topBtn.setText("LOSE");
+                    bottomBtn.setText("WIN");
                 }
             }.start();
-
-            isTopTimerRunning = true;
         }
         else{
             bottom_countDownTimer = new CountDownTimer(bottom_timeLeft, 1000) {
@@ -106,23 +98,19 @@ public class timer extends AppCompatActivity {
 
                 @Override
                 public void onFinish() {
-                    isBottomTimerRunning = false;
-                    bottomBtn.setText("A");
+                    topBtn.setText("WIN");
+                    bottomBtn.setText("LOSE");
                 }
             }.start();
-
-            isBottomTimerRunning = true;
         }
     }
 
     private void pauseTimer(String pos) {
-        if(pos.equals("top") && isTopTimerRunning){
+        if(pos.equals("top") && contaMosse != 0) {
             top_countDownTimer.cancel();
-            isTopTimerRunning = false;
         }
-        else if(pos.equals("bottom") && isBottomTimerRunning){
+        else if(pos.equals("bottom") && contaMosse != 0) {
             bottom_countDownTimer.cancel();
-            isBottomTimerRunning = false;
         }
     }
 
@@ -130,14 +118,16 @@ public class timer extends AppCompatActivity {
         pauseTimer("top");
         pauseTimer("bottom");
 
+        contaMosse = 0;
+
         bottom_timeLeft = bottom_START_TIME;
         top_timeLeft = bottom_START_TIME;
 
         uptadeCountDownText("top");
         uptadeCountDownText("bottom");
 
-        isTopTimerRunning = false;
-        isBottomTimerRunning= false;
+        bottomBtn.setClickable(true);
+        topBtn.setClickable(true);
     }
 
     private void uptadeCountDownText(String pos) {
