@@ -9,6 +9,12 @@ import android.widget.EditText;
 import android.util.Log;
 
 public class timerDatas extends AppCompatActivity {
+    public static final String NAME_WHITE = "com.example.chessTimer.nameWhite";
+    public static final String MINUTES_WHITE = "com.example.chessTimer.minutesWhite";
+    public static final String SECONDS_WHITE = "com.example.chessTimer.secondsWhite";
+    public static final String NAME_BLACK = "com.example.chessTimer.nameBlack";
+    public static final String MINUTES_BLACK = "com.example.chessTimer.minutesBlack";
+    public static final String SECONDS_BLACK = "com.example.chessTimer.secondsBlack";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,10 +24,9 @@ public class timerDatas extends AppCompatActivity {
 
     public int goToTimer (View view) {
         Intent intent = new Intent(this, timer.class);
-        int result = -1;
 
         try {
-            result = setExternalVariables(intent);
+            setExternalVariables(intent);
         } catch (myException e) {
             System.out.println(e);
             return -1;
@@ -32,14 +37,16 @@ public class timerDatas extends AppCompatActivity {
         return 0;
     }
 
-    private int setExternalVariables(Intent intent) throws myException {
-        String nameWhite = "Player1";
-        int minuteWhite = 10;
-        int secondWhite = 0;
-        String nameBlack = "Player2";
-        int minuteBlack = 10;
-        int secondBlack = 0;
+    private void setExternalVariables(Intent intent) throws myException {
+        //dichiarazione delle variabili
+        String nameWhite = "White";
+        int minutesWhite = 10;
+        int secondsWhite = 0;
+        String nameBlack = "Black";
+        int minutesBlack = 10;
+        int secondsBlack = 0;
 
+        //prelevo le EditText
         EditText nW1EditText = findViewById(R.id.nameWhite);
         EditText mW1EditText = findViewById(R.id.minuteWhite);
         EditText sW1EditText = findViewById(R.id.secondWhite);
@@ -47,36 +54,50 @@ public class timerDatas extends AppCompatActivity {
         EditText mB1EditText = findViewById(R.id.minuteBlack);
         EditText sB1EditText = findViewById(R.id.secondBlack);
 
+        //Se le edit text hanno un valore al loro interno copio il valore nella variabile corrispondente
+        //Altrimenti lascio quelli preimpostati in testa
         if(!nW1EditText.getText().toString().equals(""))
             nameWhite = nW1EditText.getText().toString();
         if(!nW1EditText.getText().toString().equals(""))
-            minuteWhite = Integer.parseInt(mW1EditText.getText().toString());
+            minutesWhite = Integer.parseInt(mW1EditText.getText().toString());
         if(!sW1EditText.getText().toString().equals(""))
-            secondWhite = Integer.parseInt(sW1EditText.getText().toString());
+            secondsWhite = Integer.parseInt(sW1EditText.getText().toString());
         if(!nB1EditText.getText().toString().equals(""))
             nameBlack = nB1EditText.getText().toString();
         if(!mB1EditText.getText().toString().equals(""))
-            minuteBlack = Integer.parseInt(mB1EditText.getText().toString());
+            minutesBlack = Integer.parseInt(mB1EditText.getText().toString());
         if(!sB1EditText.getText().toString().equals(""))
-            secondBlack = Integer.parseInt(sB1EditText.getText().toString());
+            secondsBlack = Integer.parseInt(sB1EditText.getText().toString());
 
-        if(secondWhite > 59)
+        //controllo che il tempo non superi il limite massimo di 59:59
+        if(secondsWhite > 59)
             throw new myException("****** White seconds intervall error ******");
-        if(minuteWhite > 59)
+        if(minutesWhite > 59)
             throw new myException("****** White minute intervall error ******");
-        if(secondBlack > 59)
+        if(secondsBlack > 59)
             throw new myException("****** Black seconds intervall error ******");
-        if(minuteBlack > 59)
+        if(minutesBlack > 59)
             throw new myException("****** Black minute intervall error ******");
 
+        //visualizzo su "RUN" i dati passati
+        visualiseLogcat("nameWhite: ", "" + nameWhite);
+        visualiseLogcat("minutesWhite: ", "" + minutesWhite);
+        visualiseLogcat("secondsWhite: ", "" + secondsWhite);
+        visualiseLogcat("nameBlack: ", "" + nameBlack);
+        visualiseLogcat("minutesBlack: ", "" + minutesBlack);
+        visualiseLogcat("secondsBlack: ", "" + secondsBlack);
 
-        intent.putExtra("com.example.chessTimer.namePlayer1", nameWhite);
-        intent.putExtra("com.example.chessTimer.minutePlayer1", minuteWhite);
-        intent.putExtra("com.example.chessTimer.secondPlayer1", secondWhite);
-        intent.putExtra("com.example.chessTimer.namePlayer2", nameBlack);
-        intent.putExtra("com.example.chessTimer.minutePlayer2", minuteBlack);
-        intent.putExtra("com.example.chessTimer.secondPlayer2", secondBlack);
+        //Aggiungo le variabili come extra
+        intent.putExtra(NAME_WHITE, nameWhite);
+        intent.putExtra(MINUTES_WHITE, minutesWhite);
+        intent.putExtra(SECONDS_WHITE, secondsWhite);
+        intent.putExtra(NAME_BLACK, nameBlack);
+        intent.putExtra(MINUTES_BLACK, minutesBlack);
+        intent.putExtra(SECONDS_BLACK, secondsBlack);
+    }
 
-        return 0;
+    //metodo provvisorio
+    private void visualiseLogcat(String tag,String str) {
+        Log.d("", "******************-_-[" + str + "]_-******************");
     }
 }
