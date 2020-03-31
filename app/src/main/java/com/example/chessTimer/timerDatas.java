@@ -80,12 +80,12 @@ public class timerDatas extends AppCompatActivity {
             throw new myException("****** Black minute intervall error ******");
 
         //visualizzo su "RUN" i dati passati
-        visualiseLogcat("nameWhite: ", "" + nameWhite);
-        visualiseLogcat("minutesWhite: ", "" + minutesWhite);
-        visualiseLogcat("secondsWhite: ", "" + secondsWhite);
-        visualiseLogcat("nameBlack: ", "" + nameBlack);
-        visualiseLogcat("minutesBlack: ", "" + minutesBlack);
-        visualiseLogcat("secondsBlack: ", "" + secondsBlack);
+        visualiseLogcat("nameWhite ", "" + nameWhite);
+        visualiseLogcat("minutesWhite ", "" + minutesWhite);
+        visualiseLogcat("secondsWhite ", "" + secondsWhite);
+        visualiseLogcat("nameBlack ", "" + nameBlack);
+        visualiseLogcat("minutesBlack ", "" + minutesBlack);
+        visualiseLogcat("secondsBlack ", "" + secondsBlack);
 
         //Aggiungo le variabili come extra
         intent.putExtra(NAME_WHITE, nameWhite);
@@ -98,6 +98,6 @@ public class timerDatas extends AppCompatActivity {
 
     //metodo provvisorio
     private void visualiseLogcat(String tag,String str) {
-        Log.d("", "******************-_-[" + str + "]_-******************");
+        Log.d(tag, str);
     }
 }
