@@ -40,4 +40,28 @@
         android:layout_marginBottom="349dp"
         android:text="Reset"
         android:textSize="30sp"/>
+
+    <TextView
+        android:id="@+id/topName"
+        android:layout_width="75dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="300dp"
+        android:layout_marginBottom="470dp"
+        android:text="TOP"
+        android:textSize="15sp"
+        android:translationZ="5dp" />
+
+    <TextView
+        android:id="@+id/bottomName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="299dp"
+        android:layout_marginBottom="84dp"
+        android:text="BOTTOM"
+        android:textSize="15sp"
+        android:translationZ="5dp" />
 </RelativeLayout>
