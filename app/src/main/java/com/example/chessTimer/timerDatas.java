@@ -33,8 +33,8 @@ public class timerDatas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_datas);
 
-        //funzione che scorre alla attivita' del timer
-        final Button goToTimerBtn = (Button) findViewById(R.id.goToTimerBtn);
+        //funzione che scorre alla attivita' del FisherTimer
+        final Button goToTimerBtn = findViewById(R.id.goToTimerBtn);
         goToTimerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,8 +44,8 @@ public class timerDatas extends AppCompatActivity {
 
         //con lo scorrere dello switch abilita e disabilita la parte del recupero
         //switch recupero bianco
-        final EditText recoverWhite = (EditText) findViewById(R.id.recoverWhite);
-        final Switch recoverSwitchWhite = (Switch) findViewById(R.id.recoverSwitchWhite);
+        final EditText recoverWhite = findViewById(R.id.recoverWhite);
+        final Switch recoverSwitchWhite = findViewById(R.id.recoverSwitchWhite);
         recoverSwitchWhite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -58,8 +58,8 @@ public class timerDatas extends AppCompatActivity {
             }
         });
         //switch recupero nero
-        final EditText recoverBlack = (EditText) findViewById(R.id.recoverBlack);
-        final Switch recoverSwitchBlack = (Switch) findViewById(R.id.recoverSwitchBlack);
+        final EditText recoverBlack = findViewById(R.id.recoverBlack);
+        final Switch recoverSwitchBlack = findViewById(R.id.recoverSwitchBlack);
         recoverSwitchBlack.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -73,21 +73,18 @@ public class timerDatas extends AppCompatActivity {
         });
 
         //checkBox del conta mosse
-        final CheckBox moveCounterCheckBox = (CheckBox) findViewById(R.id.moveCounterCheckBox);
+        final CheckBox moveCounterCheckBox =  findViewById(R.id.moveCounterCheckBox);
         moveCounterCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                    contaMosse = true;
-                else
-                    contaMosse = false;
+                contaMosse = isChecked;
             }
         });
     }
 
-    //funzione che scorre alla attivita' del timer
+    //funzione che scorre alla attivita' del FisherTimer
     public int goToTimer () {
-        Intent intent = new Intent(this, timer.class);
+        Intent intent = new Intent(this, FisherTimer.class);
 
         try {
             setExternalVariables(intent);
@@ -101,7 +98,7 @@ public class timerDatas extends AppCompatActivity {
         return 0;
     }
 
-    //funzione che setta tutte le variabili da consegnare al timer
+    //funzione che setta tutte le variabili da consegnare al FisherTimer
     private void setExternalVariables(Intent intent) throws myException {
         //dichiarazione delle variabili
         String nameWhite = "White";

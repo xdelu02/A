@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-public class timer extends AppCompatActivity {
+public class FisherTimer extends AppCompatActivity {
 
     private long bottom_START_TIME;
     private long top_START_TIME;
@@ -106,8 +106,8 @@ public class timer extends AppCompatActivity {
 
                 @Override
                 public void onFinish() {
-                    topBtn.setText("LOSE");
-                    bottomBtn.setText("WIN");
+                    topBtn.setText(R.string.show_msg_LOSE);
+                    bottomBtn.setText(R.string.show_msg_WIN);
                 }
             }.start();
         }
@@ -121,8 +121,8 @@ public class timer extends AppCompatActivity {
 
                 @Override
                 public void onFinish() {
-                    topBtn.setText("WIN");
-                    bottomBtn.setText("LOSE");
+                    topBtn.setText(R.string.show_msg_WIN);
+                    bottomBtn.setText( R.string.show_msg_LOSE);
                 }
             }.start();
         }
@@ -131,7 +131,7 @@ public class timer extends AppCompatActivity {
     private void pauseTimer(String pos) {
         if(pos.equals("top") && contaMosse != 0) {
             top_countDownTimer.cancel();
-            top_timeLeft += incrementoBottom;
+            top_timeLeft += incrementoTop;
             uptadeCountDownText("top");
         }
         else if(pos.equals("bottom") && contaMosse != 0) {

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Chess timer</string>
+    <string name="_00_00">00:00</string>
+    <string name="show_msg_WIN">WIN</string>
+    <string name="show_msg_LOSE">LOSE</string>
+    <string name="AAA">LOSE</string>
 </resources>
