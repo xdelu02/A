@@ -3,42 +3,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FisherTimer">
+    tools:context=".FisherTimer"
+
+    >
 
     <Button
         android:id="@+id/topBtn"
-        android:layout_width="332dp"
-        android:layout_height="248dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="46dp"
-        android:layout_marginBottom="460dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
         android:text="@string/_00_00"
         android:textColor="@android:color/black"
         android:textSize="60sp" />
 
     <Button
         android:id="@+id/bottomBtn"
-        android:layout_width="332dp"
-        android:layout_height="248dp"
-        android:layout_alignParentEnd="true"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="39dp"
-        android:layout_marginBottom="76dp"
         android:text="@string/_00_00"
         android:textColor="@android:color/black"
         android:textSize="60sp" />
-
+    <!--
     <Button
-        android:id="@+id/resetBtn"
+
         android:layout_width="173dp"
         android:layout_height="72dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="88dp"
-        android:layout_marginBottom="349dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="332dp"
         android:text="Reset"
-        android:textSize="30sp"/>
+        android:textSize="30sp" />
+        -->
 
     <TextView
         android:id="@+id/topName"
@@ -57,8 +53,46 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="299dp"
-        android:layout_marginBottom="84dp"
+        android:layout_marginEnd="369dp"
+        android:layout_marginBottom="50dp"
         android:textSize="15sp"
         android:translationZ="5dp" />
+
+    <ImageButton
+        android:id="@+id/startBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="269dp"
+        android:layout_marginBottom="318dp"
+        android:background="@android:color/white"
+        android:contentDescription="@string/play"
+        android:src="@drawable/play" />
+
+    <ImageButton
+        android:id="@+id/pauseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="194dp"
+        android:layout_marginBottom="318dp"
+        android:background="@android:color/white"
+        android:contentDescription="@string/pause"
+        android:src="@drawable/pause" />
+
+    <ImageButton
+        android:id="@+id/resetBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="103dp"
+        android:layout_marginBottom="318dp"
+        android:background="@android:color/white"
+        android:contentDescription="@string/restart"
+        android:src="@drawable/restart" />
 </RelativeLayout>

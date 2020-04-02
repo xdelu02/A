@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +25,17 @@ public class FisherTimer extends AppCompatActivity {
     private long top_timeLeft;
     private long bottom_timeLeft;
     private int contaMosse;
+    private boolean isTopTimerRunning;
+    private boolean isBottomTimerRunning;
+    private boolean lastTimerRunning; // false:top
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
+
+        isBottomTimerRunning = false;
+        isTopTimerRunning = false;
 
         Intent intent = getIntent();
 
@@ -53,11 +60,11 @@ public class FisherTimer extends AppCompatActivity {
         top_timeLeft = top_START_TIME;
         bottom_timeLeft = bottom_START_TIME;
 
-        String needContaMosse = intent.getStringExtra(timerDatas.MOVE_COUNTER);
-
         contaMosse = 0;
-
-        Button resetBtn = findViewById(R.id.resetBtn);
+        //Button resetBtn = findViewById(R.id.resetBtn);
+        ImageButton resetBtn = findViewById ( R.id.resetBtn );
+        final ImageButton pauseBtn = findViewById ( R.id.pauseBtn );
+        ImageButton startBtn = findViewById ( R.id.startBtn );
         topBtn = findViewById(R.id.topBtn);
         bottomBtn = findViewById(R.id.bottomBtn);
         uptadeCountDownText("top");
@@ -85,12 +92,42 @@ public class FisherTimer extends AppCompatActivity {
             }
         });
 
-        resetBtn.setOnClickListener(new View.OnClickListener() {
+        resetBtn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetTimer();
             }
         });
+
+        pauseBtn.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                if(isTopTimerRunning) {
+                    pauseTimer ("top");
+                    isTopTimerRunning = false;
+                    lastTimerRunning = false;
+                }
+                else{
+                    pauseTimer ( "bottom" );
+                    isBottomTimerRunning = false;
+                    lastTimerRunning = true;
+                }
+            }
+        } );
+
+        startBtn.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                if(lastTimerRunning) {
+                    startTimer ( "bottom" );
+                    isBottomTimerRunning = true;
+                }
+                else{
+                    startTimer ( "top" );
+                    isTopTimerRunning = true;
+                }
+            }
+        } );
     }
 
     private void startTimer(String pos){
@@ -110,6 +147,9 @@ public class FisherTimer extends AppCompatActivity {
                     bottomBtn.setText(R.string.show_msg_WIN);
                 }
             }.start();
+
+            isTopTimerRunning = true;
+            isBottomTimerRunning = false;
         }
         else{
             bottom_countDownTimer = new CountDownTimer(bottom_timeLeft, 1000) {
@@ -125,6 +165,9 @@ public class FisherTimer extends AppCompatActivity {
                     bottomBtn.setText( R.string.show_msg_LOSE);
                 }
             }.start();
+
+            isTopTimerRunning = false;
+            isBottomTimerRunning = true;
         }
     }
 
@@ -133,11 +176,13 @@ public class FisherTimer extends AppCompatActivity {
             top_countDownTimer.cancel();
             top_timeLeft += incrementoTop;
             uptadeCountDownText("top");
+            isTopTimerRunning = false;
         }
         else if(pos.equals("bottom") && contaMosse != 0) {
             bottom_countDownTimer.cancel();
             bottom_timeLeft += incrementoBottom;
             uptadeCountDownText("bottom");
+            isBottomTimerRunning = false;
         }
     }
 
@@ -146,6 +191,8 @@ public class FisherTimer extends AppCompatActivity {
         pauseTimer("bottom");
 
         contaMosse = 0;
+        isBottomTimerRunning = false;
+        isTopTimerRunning = false;
 
         bottom_timeLeft = bottom_START_TIME;
         top_timeLeft = top_START_TIME;

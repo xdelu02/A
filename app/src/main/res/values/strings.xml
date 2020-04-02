@@ -3,5 +3,7 @@
     <string name="_00_00">00:00</string>
     <string name="show_msg_WIN">WIN</string>
     <string name="show_msg_LOSE">LOSE</string>
-    <string name="AAA">LOSE</string>
+    <string name="play">play_img</string>
+    <string name="pause">pause_img</string>
+    <string name="restart">restart_img</string>
 </resources>
