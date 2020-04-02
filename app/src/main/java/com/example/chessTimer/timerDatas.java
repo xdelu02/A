@@ -3,6 +3,7 @@ package com.example.chessTimer;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.util.Log;
 import android.widget.Switch;
+
+import java.util.ArrayList;
 
 public class timerDatas extends AppCompatActivity {
     //percorsi
@@ -24,6 +27,16 @@ public class timerDatas extends AppCompatActivity {
     public static final String RECOVER_BLACK = "com.example.chessTimer.recoverBlack";
     public static final String MOVE_COUNTER = "com.example.chessTimer.moveCounter";
 
+    //dichiaro le EditText
+    private EditText nWEditText;
+    private EditText mWEditText;
+    private EditText sWEditText;
+    private EditText rWEditText;
+    private EditText nBEditText;
+    private EditText mBEditText;
+    private EditText sBEditText;
+    private EditText rBEditText;
+
     private boolean isNeedRecoverWhite = false;
     private boolean isNeedRecoverBlack = false;
     private boolean contaMosse = false;
@@ -32,6 +45,16 @@ public class timerDatas extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_datas);
+
+        //prelevo le EditText
+        nWEditText = findViewById(R.id.nameWhite);
+        mWEditText = findViewById(R.id.minuteWhite);
+        sWEditText = findViewById(R.id.secondWhite);
+        rWEditText = findViewById(R.id.recoverWhite);
+        nBEditText = findViewById(R.id.nameBlack);
+        mBEditText = findViewById(R.id.minuteBlack);
+        sBEditText = findViewById(R.id.secondBlack);
+        rBEditText = findViewById(R.id.recoverBlack);
 
         //funzione che scorre alla attivita' del FisherTimer
         final Button goToTimerBtn = findViewById(R.id.goToTimerBtn);
@@ -86,11 +109,24 @@ public class timerDatas extends AppCompatActivity {
     public int goToTimer () {
         Intent intent = new Intent(this, FisherTimer.class);
 
+        ArrayList<myException> exceptions = new ArrayList<>();
+
+        try {
+            controlCharLength();
+        } catch (myException e) {
+            System.out.println(e);
+            visualiseError(e);
+            return -1;
+        }
+
+        exceptions.clear();
+
         try {
             setExternalVariables(intent);
         } catch (myException e) {
             System.out.println(e);
-            return -1;
+            visualiseError(e);
+            return -2;
         }
 
         startActivity(intent);
@@ -109,16 +145,6 @@ public class timerDatas extends AppCompatActivity {
         int minutesBlack = 10;
         int secondsBlack = 0;
         int recuperoBlack = 0;
-
-        //prelevo le EditText
-        EditText nWEditText = findViewById(R.id.nameWhite);
-        EditText mWEditText = findViewById(R.id.minuteWhite);
-        EditText sWEditText = findViewById(R.id.secondWhite);
-        EditText rWEditText = findViewById(R.id.recoverWhite);
-        EditText nBEditText = findViewById(R.id.nameBlack);
-        EditText mBEditText = findViewById(R.id.minuteBlack);
-        EditText sBEditText = findViewById(R.id.secondBlack);
-        EditText rBEditText = findViewById(R.id.recoverBlack);
 
         //Se le edit text hanno un valore al loro interno copio il valore nella variabile corrispondente
         //Altrimenti lascio quelli preimpostati in testa
@@ -140,32 +166,32 @@ public class timerDatas extends AppCompatActivity {
             recuperoBlack = Integer.parseInt(rBEditText.getText().toString());
 
         //controllo che il tempo non superi il limite massimo di 59:59
-        if(secondsWhite > 59)
-            throw new myException("****** White seconds intervall error ******");
         if(minutesWhite > 59)
-            throw new myException("****** White minute intervall error ******");
+            throw new myException("Out of bounds", 1);
+        if(secondsWhite > 59)
+            throw new myException("Out of bounds", 2);
         if(recuperoWhite > 59)
-            throw new myException("****** White recover intervall error ******");
-        if(secondsBlack > 59)
-            throw new myException("****** Black seconds intervall error ******");
+            throw new myException("Out of bounds", 3);
         if(minutesBlack > 59)
-            throw new myException("****** Black minute intervall error ******");
+            throw new myException("Out of bounds", 4);
+        if(secondsBlack > 59)
+            throw new myException("Out of bounds", 5);
         if(recuperoBlack > 59)
-            throw new myException("****** Black recover intervall error ******");
+            throw new myException("Out of bounds", 6);
 
         //visualizzo su "RUN" i dati passati
-        visualiseLogcat("nameWhite ", "" + nameWhite);
-        visualiseLogcat("minutesWhite ", "" + minutesWhite);
-        visualiseLogcat("secondsWhite ", "" + secondsWhite);
-        visualiseLogcat("recoverWhite ", "" + recuperoWhite);
-        visualiseLogcat("nameBlack ", "" + nameBlack);
-        visualiseLogcat("minutesBlack ", "" + minutesBlack);
-        visualiseLogcat("secondsBlack ", "" + secondsBlack);
-        visualiseLogcat("recoverBlack ", "" + recuperoBlack);
+        visualiseInRUN("nameWhite ", "" + nameWhite);
+        visualiseInRUN("minutesWhite ", "" + minutesWhite);
+        visualiseInRUN("secondsWhite ", "" + secondsWhite);
+        visualiseInRUN("recoverWhite ", "" + recuperoWhite);
+        visualiseInRUN("nameBlack ", "" + nameBlack);
+        visualiseInRUN("minutesBlack ", "" + minutesBlack);
+        visualiseInRUN("secondsBlack ", "" + secondsBlack);
+        visualiseInRUN("recoverBlack ", "" + recuperoBlack);
         if(contaMosse)
-            visualiseLogcat("contaMosse ", "true");
+            visualiseInRUN("contaMosse ", "true");
         else
-            visualiseLogcat("contaMosse ", "false");
+            visualiseInRUN("contaMosse ", "false");
 
         //Aggiungo le variabili come extra
         intent.putExtra(NAME_WHITE, nameWhite);
@@ -180,7 +206,45 @@ public class timerDatas extends AppCompatActivity {
     }
 
     //metodo provvisorio
-    private void visualiseLogcat(String tag, String str) {
+    private void visualiseInRUN(String tag, String str) {
         Log.d(tag, str);
+    }
+
+    private void visualiseError(myException exception) {
+        switch(exception.getCode()) {
+            case 1:
+                mWEditText.setError(exception.getMessange());
+                break;
+            case 2:
+                sWEditText.setError(exception.getMessange());
+                break;
+            case 3:
+                rWEditText.setError(exception.getMessange());
+                break;
+            case 4:
+                mBEditText.setError(exception.getMessange());
+                break;
+            case 5:
+                sBEditText.setError(exception.getMessange());
+                break;
+            case 6:
+                rBEditText.setError(exception.getMessange());
+                break;
+        }
+    }
+
+    private void controlCharLength() throws myException {
+        if(mWEditText.length() > 2)
+            throw new myException("Length grater than 2", 1);
+        if(sWEditText.length() > 2)
+            throw new myException("Length grater than 2", 2);
+        if(rWEditText.length() > 2)
+            throw new myException("Length grater than 2", 3);
+        if(mBEditText.length() > 2)
+            throw new myException("Length grater than 2", 4);
+        if(sBEditText.length() > 2)
+            throw new myException("Length grater than 2", 5);
+        if(rBEditText.length() > 2)
+            throw new myException("Length grater than 2", 6);
     }
 }
