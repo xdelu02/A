@@ -10,7 +10,8 @@
     <Button
         android:id="@+id/topBtn"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="265dp"
+        android:rotation="180"
         android:text="@string/_00_00"
         android:textColor="@android:color/black"
         android:textSize="60sp" />
@@ -18,54 +19,45 @@
     <Button
         android:id="@+id/bottomBtn"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="265dp"
         android:layout_alignParentBottom="true"
         android:text="@string/_00_00"
         android:textColor="@android:color/black"
         android:textSize="60sp" />
-    <!--
-    <Button
-
-        android:layout_width="173dp"
-        android:layout_height="72dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="27dp"
-        android:layout_marginBottom="332dp"
-        android:text="Reset"
-        android:textSize="30sp" />
-        -->
 
     <TextView
         android:id="@+id/topName"
-        android:layout_width="75dp"
-        android:layout_height="35dp"
+        android:layout_width="390dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="300dp"
-        android:layout_marginBottom="470dp"
-        android:textSize="15sp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="621dp"
+        android:rotation="180"
+        android:textSize="20sp"
         android:translationZ="5dp" />
 
     <TextView
         android:id="@+id/bottomName"
-        android:layout_width="wrap_content"
+        android:layout_width="390dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="369dp"
-        android:layout_marginBottom="50dp"
-        android:textSize="15sp"
-        android:translationZ="5dp" />
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="12dp"
+        android:textSize="20sp"
+        android:translationZ="5dp"
+        tools:ignore="RelativeOverlap" />
 
     <ImageButton
-        android:id="@+id/startBtn"
+        android:id="@+id/playBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="269dp"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="251dp"
         android:layout_marginBottom="318dp"
         android:background="@android:color/white"
         android:contentDescription="@string/play"
@@ -77,8 +69,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="194dp"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="184dp"
         android:layout_marginBottom="318dp"
         android:background="@android:color/white"
         android:contentDescription="@string/pause"
@@ -90,7 +83,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="103dp"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="110dp"
         android:layout_marginBottom="318dp"
         android:background="@android:color/white"
         android:contentDescription="@string/restart"
