@@ -109,8 +109,7 @@ public class timerDatas extends AppCompatActivity {
     public int goToTimer () {
         Intent intent = new Intent(this, FisherTimer.class);
 
-        ArrayList<myException> exceptions = new ArrayList<>();
-
+        /*
         try {
             controlCharLength();
         } catch (myException e) {
@@ -118,9 +117,12 @@ public class timerDatas extends AppCompatActivity {
             visualiseError(e);
             return -1;
         }
+        */
 
-        exceptions.clear();
+        if(visualiseErrors(validateCharLength()))
+            return -1;
 
+        /*
         try {
             setExternalVariables(intent);
         } catch (myException e) {
@@ -128,6 +130,10 @@ public class timerDatas extends AppCompatActivity {
             visualiseError(e);
             return -2;
         }
+        */
+
+        if(setExternalVariables(intent) < 0)
+            return -2;
 
         startActivity(intent);
 
@@ -135,7 +141,7 @@ public class timerDatas extends AppCompatActivity {
     }
 
     //funzione che setta tutte le variabili da consegnare al FisherTimer
-    private void setExternalVariables(Intent intent) throws myException {
+    private int setExternalVariables(Intent intent) {
         //dichiarazione delle variabili
         String nameWhite = "White";
         int minutesWhite = 10;
@@ -165,19 +171,9 @@ public class timerDatas extends AppCompatActivity {
         if(!rBEditText.getText().toString().equals("") && isNeedRecoverBlack) //recupero Black
             recuperoBlack = Integer.parseInt(rBEditText.getText().toString());
 
-        //controllo che il tempo non superi il limite massimo di 59:59
-        if(minutesWhite > 59)
-            throw new myException("Out of bounds", 1);
-        if(secondsWhite > 59)
-            throw new myException("Out of bounds", 2);
-        if(recuperoWhite > 59)
-            throw new myException("Out of bounds", 3);
-        if(minutesBlack > 59)
-            throw new myException("Out of bounds", 4);
-        if(secondsBlack > 59)
-            throw new myException("Out of bounds", 5);
-        if(recuperoBlack > 59)
-            throw new myException("Out of bounds", 6);
+        //controllo la validita' degli intervalli del tempo messo dall'user
+        if(visualiseErrors(validateTime(minutesWhite, secondsWhite, recuperoWhite, minutesBlack, secondsBlack, recuperoBlack)))
+            return -2;
 
         //visualizzo su "RUN" i dati passati
         visualiseInRUN("nameWhite ", "" + nameWhite);
@@ -203,11 +199,22 @@ public class timerDatas extends AppCompatActivity {
         intent.putExtra(SECONDS_BLACK, secondsBlack);
         intent.putExtra(RECOVER_BLACK, recuperoBlack);
         intent.putExtra(MOVE_COUNTER, contaMosse);
+
+        return 1;
     }
 
     //metodo provvisorio
     private void visualiseInRUN(String tag, String str) {
         Log.d(tag, str);
+    }
+
+    private boolean visualiseErrors(ArrayList<myException> exceptions) {
+        if(exceptions.size() > 0) {
+            for (myException e : exceptions)
+                visualiseError(e);
+            return true;
+        }
+        return false;
     }
 
     private void visualiseError(myException exception) {
@@ -231,6 +238,46 @@ public class timerDatas extends AppCompatActivity {
                 rBEditText.setError(exception.getMessange());
                 break;
         }
+    }
+
+    //c0ontrollo che i campi siano inferiori a 3 caratteri
+    private ArrayList<myException> validateCharLength() {
+        ArrayList<myException> exceptions = new ArrayList<>();
+
+        if(mWEditText.length() > 2)
+            exceptions.add(new myException("Length grater than 2", 1));
+        if(sWEditText.length() > 2)
+            exceptions.add(new myException("Length grater than 2", 2));
+        if(rWEditText.length() > 2)
+            exceptions.add(new myException("Length grater than 2", 3));
+        if(mBEditText.length() > 2)
+            exceptions.add(new myException("Length grater than 2", 4));
+        if(sBEditText.length() > 2)
+            exceptions.add(new myException("Length grater than 2", 5));
+        if(rBEditText.length() > 2)
+            exceptions.add(new myException("Length grater than 2", 6));
+
+        return exceptions;
+    }
+
+    //controllo che il tempo non superi il limite massimo di 59:59
+    private ArrayList<myException> validateTime(int minutesWhite, int secondsWhite, int recuperoWhite, int minutesBlack, int secondsBlack, int recuperoBlack) {
+        ArrayList<myException> exceptions = new ArrayList<>();
+
+        if(minutesWhite > 59)
+            exceptions.add(new myException("Out of bounds", 1));
+        if(secondsWhite > 59)
+            exceptions.add(new myException("Out of bounds", 2));
+        if(recuperoWhite > 59)
+            exceptions.add(new myException("Out of bounds", 3));
+        if(minutesBlack > 59)
+            exceptions.add(new myException("Out of bounds", 4));
+        if(secondsBlack > 59)
+            exceptions.add(new myException("Out of bounds", 5));
+        if(recuperoBlack > 59)
+            exceptions.add(new myException("Out of bounds", 6));
+
+        return exceptions;
     }
 
     private void controlCharLength() throws myException {
