@@ -243,7 +243,6 @@
 
         android:text="@string/erase"
         android:textColor="#F44336"
-        android:textSize="13sp"
 
         app:layout_constraintBottom_toBottomOf="@+id/goToTimerBtn"
         app:layout_constraintEnd_toStartOf="@+id/goToTimerBtn"
