@@ -1,9 +1,7 @@
 package com.example.chessTimer;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,9 +35,9 @@ public class timerDatas extends AppCompatActivity {
     private EditText sBEditText;
     private EditText rBEditText;
 
-    private boolean isNeedRecoverWhite = false;
-    private boolean isNeedRecoverBlack = false;
-    private boolean contaMosse = false;
+    private CheckBox moveCounterCheckBox;
+    private Switch recoverSwitchWhite;
+    private Switch recoverSwitchBlack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +66,7 @@ public class timerDatas extends AppCompatActivity {
         //con lo scorrere dello switch abilita e disabilita la parte del recupero
         //switch recupero bianco
         final EditText recoverWhite = findViewById(R.id.recoverWhite);
-        final Switch recoverSwitchWhite = findViewById(R.id.recoverSwitchWhite);
+        recoverSwitchWhite = findViewById(R.id.recoverSwitchWhite);
         recoverSwitchWhite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -76,13 +74,11 @@ public class timerDatas extends AppCompatActivity {
                     recoverWhite.setVisibility(View.VISIBLE);
                 else
                     recoverWhite.setVisibility(View.INVISIBLE);
-
-                isNeedRecoverWhite = isChecked;
             }
         });
         //switch recupero nero
         final EditText recoverBlack = findViewById(R.id.recoverBlack);
-        final Switch recoverSwitchBlack = findViewById(R.id.recoverSwitchBlack);
+        recoverSwitchBlack = findViewById(R.id.recoverSwitchBlack);
         recoverSwitchBlack.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -90,17 +86,15 @@ public class timerDatas extends AppCompatActivity {
                     recoverBlack.setVisibility(View.VISIBLE);
                 else
                     recoverBlack.setVisibility(View.INVISIBLE);
-
-                isNeedRecoverBlack = isChecked;
             }
         });
 
         //checkBox del conta mosse
-        final CheckBox moveCounterCheckBox =  findViewById(R.id.moveCounterCheckBox);
+        moveCounterCheckBox =  findViewById(R.id.moveCounterCheckBox);
         moveCounterCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                contaMosse = isChecked;
+                
             }
         });
 
@@ -122,28 +116,8 @@ public class timerDatas extends AppCompatActivity {
     public int goToTimer () {
         Intent intent = new Intent(this, FisherTimer.class);
 
-        /*
-        try {
-            controlCharLength();
-        } catch (myException e) {
-            System.out.println(e);
-            visualiseError(e);
-            return -1;
-        }
-        */
-
         if(visualiseErrors(validateCharLength()))
             return -1;
-
-        /*
-        try {
-            setExternalVariables(intent);
-        } catch (myException e) {
-            System.out.println(e);
-            visualiseError(e);
-            return -2;
-        }
-        */
 
         if(setExternalVariables(intent) < 0)
             return -2;
@@ -173,7 +147,7 @@ public class timerDatas extends AppCompatActivity {
             minutesWhite = Integer.parseInt(mWEditText.getText().toString());
         if(!sWEditText.getText().toString().equals("")) //secondi White
             secondsWhite = Integer.parseInt(sWEditText.getText().toString());
-        if(!rWEditText.getText().toString().equals("") && isNeedRecoverWhite) //recupero White
+        if(!rWEditText.getText().toString().equals("") && recoverSwitchWhite.isChecked()) //recupero White
             recuperoWhite = Integer.parseInt(rWEditText.getText().toString());
         if(!nBEditText.getText().toString().equals("")) //nome Black
             nameBlack = nBEditText.getText().toString();
@@ -181,7 +155,7 @@ public class timerDatas extends AppCompatActivity {
             minutesBlack = Integer.parseInt(mBEditText.getText().toString());
         if(!sBEditText.getText().toString().equals("")) //secondi Black
             secondsBlack = Integer.parseInt(sBEditText.getText().toString());
-        if(!rBEditText.getText().toString().equals("") && isNeedRecoverBlack) //recupero Black
+        if(!rBEditText.getText().toString().equals("") && recoverSwitchBlack.isChecked()) //recupero Black
             recuperoBlack = Integer.parseInt(rBEditText.getText().toString());
 
         //controllo la validita' degli intervalli del tempo messo dall'user
@@ -197,7 +171,7 @@ public class timerDatas extends AppCompatActivity {
         visualiseInRUN("minutesBlack ", "" + minutesBlack);
         visualiseInRUN("secondsBlack ", "" + secondsBlack);
         visualiseInRUN("recoverBlack ", "" + recuperoBlack);
-        if(contaMosse)
+        if(moveCounterCheckBox.isChecked())
             visualiseInRUN("contaMosse ", "true");
         else
             visualiseInRUN("contaMosse ", "false");
@@ -211,7 +185,7 @@ public class timerDatas extends AppCompatActivity {
         intent.putExtra(MINUTES_BLACK, minutesBlack);
         intent.putExtra(SECONDS_BLACK, secondsBlack);
         intent.putExtra(RECOVER_BLACK, recuperoBlack);
-        intent.putExtra(MOVE_COUNTER, contaMosse);
+        intent.putExtra(MOVE_COUNTER, moveCounterCheckBox.isChecked());
 
         return 1;
     }
