@@ -6,12 +6,14 @@
     <string name="play">play_img</string>
     <string name="pause">pause_img</string>
     <string name="restart">restart_img</string>
-    <string name="recover">Recover</string>
+    <string name="recover">Bonus</string>
     <string name="move_counter">Move Counter</string>
     <string name="s">s</string>
     <string name="m">m</string>
     <string name="white">White</string>
     <string name="go_to_timer">go to timer</string>
+    <string name="submit">submit</string>
     <string name="black">Black</string>
     <string name="duobleDot">:</string>
+    <string name="erase">erase</string>
 </resources>

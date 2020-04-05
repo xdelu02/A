@@ -103,6 +103,19 @@ public class timerDatas extends AppCompatActivity {
                 contaMosse = isChecked;
             }
         });
+
+        //Btn erase
+        final Button eraseBtn = findViewById(R.id.eraseBtn);
+        eraseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearAllFilds();
+
+                recoverSwitchWhite.setChecked(false);
+                recoverSwitchBlack.setChecked(false);
+                moveCounterCheckBox.setChecked(false);
+            }
+        });
     }
 
     //funzione che scorre alla attivita' del FisherTimer
@@ -293,5 +306,17 @@ public class timerDatas extends AppCompatActivity {
             throw new myException("Length grater than 2", 5);
         if(rBEditText.length() > 2)
             throw new myException("Length grater than 2", 6);
+    }
+
+    //clear all filds
+    private void clearAllFilds() {
+        nWEditText.setText("");
+        mWEditText.setText("");
+        sWEditText.setText("");
+        rWEditText.setText("");
+        nBEditText.setText("");
+        mBEditText.setText("");
+        sBEditText.setText("");
+        rBEditText.setText("");
     }
 }

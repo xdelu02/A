@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ErrorTheme" >
+        <item name="colorAccent">@color/colorError</item>
+    </style>
+
 </resources>

@@ -124,21 +124,27 @@
 
     <Button
         android:id="@+id/goToTimerBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/go_to_timer"
+        android:layout_width="89dp"
+        android:layout_height="45dp"
+        android:background="@drawable/btn_bg_submit"
+
+        android:text="@string/submit"
+
+        android:textColor="#4CAF50"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.66"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/moveCounterCheckBox"
-        app:layout_constraintVertical_bias="0.120000005" />
+        app:layout_constraintVertical_bias="0.119" />
 
     <EditText
         android:id="@+id/nameWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="215dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/white"
         android:inputType="textPersonName"
@@ -146,8 +152,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.211"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="0.16000003" />
 
     <EditText
         android:id="@+id/minuteWhite"
@@ -221,6 +226,7 @@
         android:id="@+id/moveCounterCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="false"
         android:text="@string/move_counter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -228,5 +234,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recoverBlack"
         app:layout_constraintVertical_bias="0.120000005" />
+
+    <Button
+        android:id="@+id/eraseBtn"
+        android:layout_width="89dp"
+        android:layout_height="45dp"
+        android:background="@drawable/btn_bg_erase"
+
+        android:text="@string/erase"
+        android:textColor="#F44336"
+        android:textSize="13sp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/goToTimerBtn"
+        app:layout_constraintEnd_toStartOf="@+id/goToTimerBtn"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/goToTimerBtn"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
