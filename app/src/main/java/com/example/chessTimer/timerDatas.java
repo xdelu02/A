@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +12,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.util.Log;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -43,9 +41,6 @@ public class timerDatas extends AppCompatActivity {
     private Switch recoverSwitchWhite;
     private Switch recoverSwitchBlack;
 
-    private Button nightModeBtn;
-    private Button lightModeBtn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //DARK/LIGHT MODE HEADER SECTION
@@ -58,8 +53,8 @@ public class timerDatas extends AppCompatActivity {
         setContentView(R.layout.activity_timer_datas);
 
         //DARK/LIGHT MODE VISIBILITY OF BTNS SECTION
-        nightModeBtn = (Button) findViewById(R.id.nightModeBtn);
-        lightModeBtn = (Button) findViewById(R.id.lightModeBtn);
+        Button nightModeBtn = findViewById(R.id.nightModeBtn);
+        Button lightModeBtn = findViewById(R.id.lightModeBtn);
         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             lightModeBtn.setVisibility(View.VISIBLE);
             nightModeBtn.setVisibility(View.INVISIBLE);
