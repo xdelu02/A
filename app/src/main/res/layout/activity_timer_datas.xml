@@ -11,25 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:autoText="false"
+        android:text="Bonus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.01"
         app:layout_constraintStart_toStartOf="@+id/minuteBlack"
         app:layout_constraintTop_toBottomOf="@+id/minuteBlack"
         app:layout_constraintVertical_bias="0.02555555" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/recover"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/recoverSwitchBlack"
-        app:layout_constraintTop_toBottomOf="@+id/minuteBlack"
-        app:layout_constraintVertical_bias="0.03111111" />
 
     <EditText
         android:id="@+id/recoverBlack"
@@ -42,10 +31,10 @@
         android:hint="@string/s"
         android:inputType="number"
         android:visibility="invisible"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
+        app:layout_constraintBaseline_toBaselineOf="@+id/recoverSwitchBlack"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
-        app:layout_constraintStart_toEndOf="@+id/textView6" />
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toEndOf="@+id/recoverSwitchBlack" />
 
     <EditText
         android:id="@+id/recoverWhite"
@@ -58,10 +47,10 @@
         android:hint="@string/s"
         android:inputType="number"
         android:visibility="invisible"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
+        app:layout_constraintBaseline_toBaselineOf="@+id/recoverSwitchWhite"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toEndOf="@+id/textView2" />
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toEndOf="@+id/recoverSwitchWhite" />
 
     <EditText
         android:id="@+id/minuteBlack"
@@ -124,7 +113,7 @@
 
     <Button
         android:id="@+id/goToTimerBtn"
-        android:layout_width="89dp"
+        android:layout_width="81dp"
         android:layout_height="45dp"
         android:background="@drawable/btn_bg_submit"
 
@@ -202,25 +191,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:text="Bonus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.01"
         app:layout_constraintStart_toStartOf="@+id/minuteWhite"
         app:layout_constraintTop_toBottomOf="@+id/minuteWhite"
         app:layout_constraintVertical_bias="0.02555555" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/recover"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/recoverSwitchWhite"
-        app:layout_constraintTop_toBottomOf="@+id/minuteWhite"
-        app:layout_constraintVertical_bias="0.03111111" />
 
     <CheckBox
         android:id="@+id/moveCounterCheckBox"
@@ -237,7 +214,7 @@
 
     <Button
         android:id="@+id/eraseBtn"
-        android:layout_width="89dp"
+        android:layout_width="81dp"
         android:layout_height="45dp"
         android:background="@drawable/btn_bg_erase"
 
@@ -257,6 +234,7 @@
         android:layout_height="37dp"
         android:background="@drawable/bg_transaprent"
         android:drawableTop="@drawable/ic_brightness_3_black_24dp"
+        android:rotation="45"
         app:layout_constraintBottom_toTopOf="@+id/nameWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.958"
