@@ -59,9 +59,9 @@ public class FisherTimer extends AppCompatActivity {
         int incrementoBottom_in_secondi = intent.getIntExtra(timerDatas.RECOVER_BLACK,0);
         int incrementoTop_in_secondi = intent.getIntExtra(timerDatas.RECOVER_WHITE,0);
 
-        top_START_TIME = (minTop * 60000) + (secTop * 1000);
+        top_START_TIME = (minTop * 60000) + (secTop * 1000) + 5;
         incrementoTop = incrementoTop_in_secondi * 1000;
-        bottom_START_TIME = (minBottom * 60000) + (secBottom * 1000);
+        bottom_START_TIME = (minBottom * 60000) + (secBottom * 1000) + 5;
         incrementoBottom = incrementoBottom_in_secondi * 1000;
 
         top_timeLeft = top_START_TIME;
@@ -111,12 +111,8 @@ public class FisherTimer extends AppCompatActivity {
                 if(contaMosse != 0) {
                     if (isTopTimerRunning) {
                         pauseTimer ( "top" );
-                        isTopTimerRunning = false;
-                        lastTimerRunning = false;
                     } else {
                         pauseTimer ( "bottom" );
-                        isBottomTimerRunning = false;
-                        lastTimerRunning = true;
                     }
                 }
             }
@@ -182,17 +178,19 @@ public class FisherTimer extends AppCompatActivity {
     }
 
     private void pauseTimer(String pos) {
-        if(pos.equals("top") && contaMosse != 0) {
+        if(isTopTimerRunning) {
             top_countDownTimer.cancel();
             top_timeLeft += incrementoTop;
             uptadeCountDownText("top");
             isTopTimerRunning = false;
+            lastTimerRunning = false;
         }
         else if(pos.equals("bottom") && contaMosse != 0) {
             bottom_countDownTimer.cancel();
             bottom_timeLeft += incrementoBottom;
             uptadeCountDownText("bottom");
             isBottomTimerRunning = false;
+            lastTimerRunning = true;
         }
     }
 
