@@ -3,10 +3,11 @@ package com.example.chessTimer;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+
+import gr.net.maroulis.library.EasySplashScreen;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -14,23 +15,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //TimerDatas
-        Button timerDatasBtn = (Button) findViewById(R.id.timerDatasBtn);
-        timerDatasBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToTimerDatas();
-            }
-        });
+        EasySplashScreen config = new EasySplashScreen(MainActivity.this)
+                .withFullScreen()
+                .withTargetActivity(timerDatas.class)
+                .withSplashTimeOut(2000)
+                .withBackgroundColor(Color.parseColor("#1a1b29"))
+                .withHeaderText("")
+                .withFooterText("Made by ChessTimer.inc")
+                .withBeforeLogoText("")
+                .withAfterLogoText("Chess Timer")
+                .withLogo(R.mipmap.ic_launcher);
 
-        //Settings
-        Button settingsBtn = (Button) findViewById(R.id.settingsBtn);
-        settingsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToSettings();
-            }
-        });
+        config.getHeaderTextView().setTextColor(Color.WHITE);
+        config.getFooterTextView().setTextColor(Color.WHITE);
+        config.getBeforeLogoTextView().setTextColor(Color.WHITE);
+        config.getAfterLogoTextView().setTextColor(Color.WHITE);
+
+        View easySplashScreen = config.create();
+        setContentView(easySplashScreen);
     }
 
     //go to methods
