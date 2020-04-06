@@ -122,13 +122,10 @@ public class FisherTimer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!isTopTimerRunning && !isBottomTimerRunning && contaMosse !=0){
-
                     if (lastTimerRunning) {
                         startTimer ( "bottom" );
-                        isBottomTimerRunning = true;
                     } else {
                         startTimer ( "top" );
-                        isTopTimerRunning = true;
                     }
                 }
             }
