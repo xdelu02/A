@@ -34,16 +34,4 @@ public class MainActivity extends AppCompatActivity {
         View easySplashScreen = config.create();
         setContentView(easySplashScreen);
     }
-
-    //go to methods
-    //timerDatas
-    private void goToTimerDatas () {
-        Intent intent = new Intent(this, timerDatas.class);
-        startActivity(intent);
-    }
-    //Settings
-    private void goToSettings (){
-        Intent intent = new Intent(this, Settings.class);
-        startActivity(intent);
-    }
 }
