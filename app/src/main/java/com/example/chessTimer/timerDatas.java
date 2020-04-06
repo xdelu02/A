@@ -50,7 +50,6 @@ public class timerDatas extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_datas);
-
         //prelevo le EditText
         nWEditText = findViewById(R.id.nameWhite);
         mWEditText = findViewById(R.id.minuteWhite);
@@ -123,14 +122,10 @@ public class timerDatas extends AppCompatActivity {
 
         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme ( R.style.DarkTheme );
-            nightModeBtn.setVisibility ( View.INVISIBLE );
-            lightModeBtn.setVisibility ( View.VISIBLE );
 
         }
         else {
             setTheme ( R.style.AppTheme );
-            lightModeBtn.setVisibility ( View.INVISIBLE );
-            nightModeBtn.setVisibility ( View.VISIBLE );
         }
 
         //DARK/LIGHT MODE VISIBILITY OF BTNS SECTION
