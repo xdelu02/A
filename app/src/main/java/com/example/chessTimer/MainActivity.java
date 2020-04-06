@@ -1,10 +1,11 @@
 package com.example.chessTimer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import gr.net.maroulis.library.EasySplashScreen;
 
@@ -13,10 +14,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         EasySplashScreen config = new EasySplashScreen(MainActivity.this)
                 .withFullScreen()
                 .withTargetActivity(timerDatas.class)
-                .withSplashTimeOut(2000)
+                .withSplashTimeOut(800)
                 .withBackgroundColor(Color.parseColor("#212121"))
                 .withHeaderText("")
                 .withFooterText("Made by ChessTimer.inc")

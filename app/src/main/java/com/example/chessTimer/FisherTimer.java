@@ -231,8 +231,8 @@ public class FisherTimer extends AppCompatActivity {
             TextView topMoveCounter = findViewById ( R.id.topMoveCounter );
             TextView bottomMoveCounter = findViewById ( R.id.bottomMoveCounter );
 
-            topMoveCounter.setText ( String.format ( Locale.getDefault (),"Move: %d",contaMosse ));
-            bottomMoveCounter.setText ( String.format ( Locale.getDefault (),"Move: %d",contaMosse ));
+            topMoveCounter.setText ( String.format ( Locale.getDefault (),"    Move: %d",contaMosse ));
+            bottomMoveCounter.setText ( String.format ( Locale.getDefault (),"    Move: %d",contaMosse ));
         }
     }
 }
