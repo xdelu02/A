@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import java.util.Locale;
 
 public class FisherTimer extends AppCompatActivity {
@@ -28,6 +27,7 @@ public class FisherTimer extends AppCompatActivity {
     private boolean isTopTimerRunning;
     private boolean isBottomTimerRunning;
     private boolean lastTimerRunning; // false:top
+    private boolean needMoveCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +43,14 @@ public class FisherTimer extends AppCompatActivity {
         Intent intent = getIntent();
 
         TextView topName = findViewById(R.id.topName);
-        topName.setText(intent.getStringExtra(timerDatas.NAME_WHITE));
+        String tName = "    " + intent.getStringExtra(timerDatas.NAME_WHITE);
+        topName.setText(tName);
 
         TextView bottomName = findViewById(R.id.bottomName);
-        bottomName.setText(intent.getStringExtra(timerDatas.NAME_BLACK));
+        String btmName = "    " + intent.getStringExtra(timerDatas.NAME_BLACK);
+        bottomName.setText(btmName);
+
+        needMoveCounter = intent.getBooleanExtra ( timerDatas.MOVE_COUNTER, false);
 
         int minBottom = intent.getIntExtra(timerDatas.MINUTES_BLACK,0);
         int minTop = intent.getIntExtra(timerDatas.MINUTES_WHITE,0);
@@ -217,6 +221,7 @@ public class FisherTimer extends AppCompatActivity {
 
             String timeLeftOutput = String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds);
             topBtn.setText(timeLeftOutput);
+
         }
         else{
             int minutes = (int) bottom_timeLeft / 1000 / 60;
@@ -225,6 +230,14 @@ public class FisherTimer extends AppCompatActivity {
             String timeLeftOutput = String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds);
 
             bottomBtn.setText(timeLeftOutput);
+        }
+
+        if(needMoveCounter) {
+            TextView topMoveCounter = findViewById ( R.id.topMoveCounter );
+            TextView bottomMoveCounter = findViewById ( R.id.bottomMoveCounter );
+
+            topMoveCounter.setText ( String.format ( Locale.getDefault (),"Move: %d",contaMosse ));
+            bottomMoveCounter.setText ( String.format ( Locale.getDefault (),"Move: %d",contaMosse ));
         }
     }
 }
