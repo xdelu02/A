@@ -1,7 +1,10 @@
 package com.example.chessTimer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.util.Log;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -39,10 +43,31 @@ public class timerDatas extends AppCompatActivity {
     private Switch recoverSwitchWhite;
     private Switch recoverSwitchBlack;
 
+    private Button nightModeBtn;
+    private Button lightModeBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //DARK/LIGHT MODE HEADER SECTION
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            setTheme(R.style.DarkTheme);
+        else
+            setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_datas);
+
+        //DARK/LIGHT MODE VISIBILITY OF BTNS SECTION
+        nightModeBtn = (Button) findViewById(R.id.nightModeBtn);
+        lightModeBtn = (Button) findViewById(R.id.lightModeBtn);
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            lightModeBtn.setVisibility(View.VISIBLE);
+            nightModeBtn.setVisibility(View.INVISIBLE);
+        }
+        else {
+            nightModeBtn.setVisibility(View.VISIBLE);
+            lightModeBtn.setVisibility(View.INVISIBLE);
+        }
 
         //prelevo le EditText
         nWEditText = findViewById(R.id.nameWhite);
@@ -108,6 +133,20 @@ public class timerDatas extends AppCompatActivity {
                 recoverSwitchWhite.setChecked(false);
                 recoverSwitchBlack.setChecked(false);
                 moveCounterCheckBox.setChecked(false);
+            }
+        });
+
+        //Btn for DarkMode
+        nightModeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+        });
+        lightModeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
         });
     }

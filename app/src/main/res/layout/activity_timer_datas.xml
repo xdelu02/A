@@ -251,4 +251,31 @@
         app:layout_constraintTop_toTopOf="@+id/goToTimerBtn"
         app:layout_constraintVertical_bias="0.0" />
 
+    <Button
+        android:id="@+id/nightModeBtn"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:background="@drawable/bg_transaprent"
+        android:drawableTop="@drawable/ic_brightness_3_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/nameWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.958"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.202" />
+
+    <Button
+        android:id="@+id/lightModeBtn"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:background="@drawable/bg_transaprent"
+        android:drawableTop="@drawable/ic_brightness_7_black_24dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/nameWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.958"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.202" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

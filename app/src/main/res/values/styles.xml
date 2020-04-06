@@ -6,10 +6,41 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimatioTransition</item>
     </style>
 
     <style name="ErrorTheme" >
         <item name="colorAccent">@color/colorError</item>
+    </style>
+
+    <!-- Light/Day Mode theme -->
+    <style name="LightTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="backgroundcolor">#FCFCFC</item>
+        <item name="cardbackcolor">#FFFFFF</item>
+        <item name="textcolor">#000000</item>
+        <item name="tintcolor">#FFFFFF</item>
+        <item name="buttoncolor">#2196F3</item>
+    </style>
+
+    <!-- Dark/Night Mode theme -->
+    <style name="DarkTheme">
+        <item name="colorPrimary">#212121</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="backgroundcolor">#303030</item>
+        <item name="cardbackcolor">#424242</item>
+        <item name="textcolor">#FFFFFF</item>
+        <item name="tintcolor">#FFFFFF</item>
+        <item name="buttoncolor">#2196F3</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimatioTransition</item>
+    </style>
+
+    <style name="WindowAnimatioTransition">
+        <item name="android:windowEnterAnimation" >@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation" >@android:anim/fade_out</item>
     </style>
 
 </resources>

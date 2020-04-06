@@ -2,7 +2,6 @@ package com.example.chessTimer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -13,13 +12,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         EasySplashScreen config = new EasySplashScreen(MainActivity.this)
                 .withFullScreen()
                 .withTargetActivity(timerDatas.class)
                 .withSplashTimeOut(2000)
-                .withBackgroundColor(Color.parseColor("#1a1b29"))
+                .withBackgroundColor(Color.parseColor("#212121"))
                 .withHeaderText("")
                 .withFooterText("Made by ChessTimer.inc")
                 .withBeforeLogoText("")
