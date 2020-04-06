@@ -1,21 +1,22 @@
-package com.example.chessTimer;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
+        package com.example.chessTimer;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.util.Log;
-import android.widget.Switch;
-import android.widget.TextView;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.appcompat.app.AppCompatDelegate;
 
-import java.util.ArrayList;
+        import android.content.Intent;
+        import android.graphics.Color;
+        import android.os.Bundle;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.CheckBox;
+        import android.widget.CompoundButton;
+        import android.widget.EditText;
+        import android.util.Log;
+        import android.widget.Switch;
+        import android.widget.TextView;
+
+        import java.util.ArrayList;
 
 public class timerDatas extends AppCompatActivity {
     //percorsi
@@ -43,31 +44,12 @@ public class timerDatas extends AppCompatActivity {
     private Switch recoverSwitchWhite;
     private Switch recoverSwitchBlack;
 
-    private Button nightModeBtn;
-    private Button lightModeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //DARK/LIGHT MODE HEADER SECTION
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-            setTheme(R.style.DarkTheme);
-        else
-            setTheme(R.style.AppTheme);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_datas);
-
-        //DARK/LIGHT MODE VISIBILITY OF BTNS SECTION
-        nightModeBtn = (Button) findViewById(R.id.nightModeBtn);
-        lightModeBtn = (Button) findViewById(R.id.lightModeBtn);
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            lightModeBtn.setVisibility(View.VISIBLE);
-            nightModeBtn.setVisibility(View.INVISIBLE);
-        }
-        else {
-            nightModeBtn.setVisibility(View.VISIBLE);
-            lightModeBtn.setVisibility(View.INVISIBLE);
-        }
 
         //prelevo le EditText
         nWEditText = findViewById(R.id.nameWhite);
@@ -90,7 +72,7 @@ public class timerDatas extends AppCompatActivity {
 
         //con lo scorrere dello switch abilita e disabilita la parte del recupero
         //switch recupero bianco
-        final EditText recoverWhite = findViewById(R.id.recoverWhite);
+        final EditText recoverWhite = rWEditText;
         recoverSwitchWhite = findViewById(R.id.recoverSwitchWhite);
         recoverSwitchWhite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -102,7 +84,7 @@ public class timerDatas extends AppCompatActivity {
             }
         });
         //switch recupero nero
-        final EditText recoverBlack = findViewById(R.id.recoverBlack);
+        final EditText recoverBlack = rBEditText;
         recoverSwitchBlack = findViewById(R.id.recoverSwitchBlack);
         recoverSwitchBlack.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -119,7 +101,7 @@ public class timerDatas extends AppCompatActivity {
         moveCounterCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                
+
             }
         });
 
@@ -135,6 +117,33 @@ public class timerDatas extends AppCompatActivity {
                 moveCounterCheckBox.setChecked(false);
             }
         });
+
+        Button nightModeBtn = findViewById(R.id.nightModeBtn); // basta castttttttttttttttt inutiliiiiiiiiii
+        Button lightModeBtn = findViewById(R.id.lightModeBtn);  // variabili che usi solo in un metodo non serve metterle globali
+
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme ( R.style.DarkTheme );
+            nightModeBtn.setVisibility ( View.INVISIBLE );
+            lightModeBtn.setVisibility ( View.VISIBLE );
+
+        }
+        else {
+            setTheme ( R.style.AppTheme );
+            lightModeBtn.setVisibility ( View.INVISIBLE );
+            nightModeBtn.setVisibility ( View.VISIBLE );
+        }
+
+        //DARK/LIGHT MODE VISIBILITY OF BTNS SECTION
+
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            lightModeBtn.setVisibility(View.VISIBLE);
+            nightModeBtn.setVisibility(View.INVISIBLE);
+        }
+        else {
+            nightModeBtn.setVisibility(View.VISIBLE);
+            lightModeBtn.setVisibility(View.INVISIBLE);
+        }
+
 
         //Btn for DarkMode
         nightModeBtn.setOnClickListener(new View.OnClickListener() {
@@ -333,3 +342,4 @@ public class timerDatas extends AppCompatActivity {
         rBEditText.setText("");
     }
 }
+
