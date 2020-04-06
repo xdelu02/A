@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import java.util.Locale;
 
 public class FisherTimer extends AppCompatActivity {
@@ -28,6 +27,7 @@ public class FisherTimer extends AppCompatActivity {
     private boolean isTopTimerRunning;
     private boolean isBottomTimerRunning;
     private boolean lastTimerRunning; // false:top
+    private boolean needMoveCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +43,14 @@ public class FisherTimer extends AppCompatActivity {
         Intent intent = getIntent();
 
         TextView topName = findViewById(R.id.topName);
-        topName.setText(intent.getStringExtra(timerDatas.NAME_WHITE));
+        String tName = "    " + intent.getStringExtra(timerDatas.NAME_WHITE);
+        topName.setText(tName);
 
         TextView bottomName = findViewById(R.id.bottomName);
-        bottomName.setText(intent.getStringExtra(timerDatas.NAME_BLACK));
+        String btmName = "    " + intent.getStringExtra(timerDatas.NAME_BLACK);
+        bottomName.setText(btmName);
+
+        needMoveCounter = intent.getBooleanExtra ( timerDatas.MOVE_COUNTER, false);
 
         int minBottom = intent.getIntExtra(timerDatas.MINUTES_BLACK,0);
         int minTop = intent.getIntExtra(timerDatas.MINUTES_WHITE,0);
@@ -55,9 +59,9 @@ public class FisherTimer extends AppCompatActivity {
         int incrementoBottom_in_secondi = intent.getIntExtra(timerDatas.RECOVER_BLACK,0);
         int incrementoTop_in_secondi = intent.getIntExtra(timerDatas.RECOVER_WHITE,0);
 
-        top_START_TIME = (minTop * 60000) + (secTop * 1000);
+        top_START_TIME = (minTop * 60000) + (secTop * 1000) + 5;
         incrementoTop = incrementoTop_in_secondi * 1000;
-        bottom_START_TIME = (minBottom * 60000) + (secBottom * 1000);
+        bottom_START_TIME = (minBottom * 60000) + (secBottom * 1000) + 5;
         incrementoBottom = incrementoBottom_in_secondi * 1000;
 
         top_timeLeft = top_START_TIME;
@@ -107,12 +111,8 @@ public class FisherTimer extends AppCompatActivity {
                 if(contaMosse != 0) {
                     if (isTopTimerRunning) {
                         pauseTimer ( "top" );
-                        isTopTimerRunning = false;
-                        lastTimerRunning = false;
                     } else {
                         pauseTimer ( "bottom" );
-                        isBottomTimerRunning = false;
-                        lastTimerRunning = true;
                     }
                 }
             }
@@ -122,13 +122,10 @@ public class FisherTimer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!isTopTimerRunning && !isBottomTimerRunning && contaMosse !=0){
-
                     if (lastTimerRunning) {
                         startTimer ( "bottom" );
-                        isBottomTimerRunning = true;
                     } else {
                         startTimer ( "top" );
-                        isTopTimerRunning = true;
                     }
                 }
             }
@@ -178,17 +175,19 @@ public class FisherTimer extends AppCompatActivity {
     }
 
     private void pauseTimer(String pos) {
-        if(pos.equals("top") && contaMosse != 0) {
+        if(isTopTimerRunning) {
             top_countDownTimer.cancel();
             top_timeLeft += incrementoTop;
             uptadeCountDownText("top");
             isTopTimerRunning = false;
+            lastTimerRunning = false;
         }
         else if(pos.equals("bottom") && contaMosse != 0) {
             bottom_countDownTimer.cancel();
             bottom_timeLeft += incrementoBottom;
             uptadeCountDownText("bottom");
             isBottomTimerRunning = false;
+            lastTimerRunning = true;
         }
     }
 
@@ -217,6 +216,7 @@ public class FisherTimer extends AppCompatActivity {
 
             String timeLeftOutput = String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds);
             topBtn.setText(timeLeftOutput);
+
         }
         else{
             int minutes = (int) bottom_timeLeft / 1000 / 60;
@@ -225,6 +225,14 @@ public class FisherTimer extends AppCompatActivity {
             String timeLeftOutput = String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds);
 
             bottomBtn.setText(timeLeftOutput);
+        }
+
+        if(needMoveCounter) {
+            TextView topMoveCounter = findViewById ( R.id.topMoveCounter );
+            TextView bottomMoveCounter = findViewById ( R.id.bottomMoveCounter );
+
+            topMoveCounter.setText ( String.format ( Locale.getDefault (),"Move: %d",contaMosse ));
+            bottomMoveCounter.setText ( String.format ( Locale.getDefault (),"Move: %d",contaMosse ));
         }
     }
 }
