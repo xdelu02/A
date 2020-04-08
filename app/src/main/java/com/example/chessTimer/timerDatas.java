@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.util.Log;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -44,7 +45,7 @@ public class timerDatas extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //DARK/LIGHT MODE HEADER SECTION
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+        if(isDarkModeOn())
             setTheme(R.style.DarkTheme);
         else
             setTheme(R.style.AppTheme);
@@ -55,7 +56,7 @@ public class timerDatas extends AppCompatActivity {
         //DARK/LIGHT MODE VISIBILITY OF BTNS SECTION
         Button nightModeBtn = findViewById(R.id.nightModeBtn);
         Button lightModeBtn = findViewById(R.id.lightModeBtn);
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+        if(isDarkModeOn()) {
             lightModeBtn.setVisibility(View.VISIBLE);
             nightModeBtn.setVisibility(View.INVISIBLE);
         }
@@ -153,8 +154,10 @@ public class timerDatas extends AppCompatActivity {
         if(visualiseErrors(validateCharLength()))
             return -1;
 
-        if(setExternalVariables(intent) < 0)
+        if(setExternalVariables(intent) < 0) {
+            showErrorToast();
             return -2;
+        }
 
         startActivity(intent);
 
@@ -326,5 +329,16 @@ public class timerDatas extends AppCompatActivity {
         mBEditText.setText("");
         sBEditText.setText("");
         rBEditText.setText("");
+    }
+
+    //personalized toast
+    private void showErrorToast() {
+
+        Toast.makeText(this, "You made error in timer parameters!", Toast.LENGTH_SHORT).show();
+    }
+
+    //true se la dark mode e' attiva
+    public static boolean isDarkModeOn() {
+        return AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
     }
 }

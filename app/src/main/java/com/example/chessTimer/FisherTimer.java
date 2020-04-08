@@ -34,7 +34,7 @@ public class FisherTimer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //DARK/LIGHT MODE HEADER SECTION
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+        if(timerDatas.isDarkModeOn())
             setTheme(R.style.DarkTheme);
         else
             setTheme(R.style.AppTheme);
