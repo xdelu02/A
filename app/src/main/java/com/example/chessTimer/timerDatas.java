@@ -14,6 +14,8 @@ import android.util.Log;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.muddzdev.styleabletoastlibrary.StyleableToast;
+
 import java.util.ArrayList;
 
 public class timerDatas extends AppCompatActivity {
@@ -151,8 +153,10 @@ public class timerDatas extends AppCompatActivity {
     public int goToTimer () {
         Intent intent = new Intent(this, FisherTimer.class);
 
-        if(visualiseErrors(validateCharLength()))
+        if(visualiseErrors(validateCharLength())) {
+            showErrorToast();
             return -1;
+        }
 
         if(setExternalVariables(intent) < 0) {
             showErrorToast();
@@ -333,8 +337,12 @@ public class timerDatas extends AppCompatActivity {
 
     //personalized toast
     private void showErrorToast() {
+        String message = "You made error in timer parameters!";
 
-        Toast.makeText(this, "You made error in timer parameters!", Toast.LENGTH_SHORT).show();
+        if(isDarkModeOn())
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        else
+            StyleableToast.makeText(this, message, R.style.lightToast).show();
     }
 
     //true se la dark mode e' attiva

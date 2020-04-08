@@ -31,6 +31,10 @@
         <item name="buttoncolor">#2196F3</item>
     </style>
 
+    <style name="lightToast">
+        <item name="colorBackground">#424242</item>
+    </style>
+
     <!-- Dark/Night Mode theme -->
     <style name="DarkTheme">
         <item name="colorPrimary">#212121</item>
