@@ -227,6 +227,7 @@
         app:layout_constraintTop_toTopOf="@+id/goToTimerBtn"
         app:layout_constraintVertical_bias="0.0" />
 
+
     <Button
         android:id="@+id/nightModeBtn"
         android:layout_width="37dp"

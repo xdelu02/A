@@ -6,7 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimatioTransition</item>a
+
+        <item name="backgroundcolor">#FCFCFC</item>
+        <item name="cardbackcolor">#FFFFFF</item>
+        <item name="textcolor">#000000</item>
+        <item name="tintcolor">#FFFFFF</item>
+        <item name="buttoncolor">#2196F3</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimatioTransition</item>
     </style>
 
     <style name="ErrorTheme" >
