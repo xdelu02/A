@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,8 +13,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.util.Log;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
 import java.util.ArrayList;
@@ -44,9 +45,28 @@ public class timerDatas extends AppCompatActivity {
     private Switch recoverSwitchWhite;
     private Switch recoverSwitchBlack;
 
+    //SharedPreferences
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String SP_NAME_WHITE = "nameWhite";
+    public static final String SP_MINUTES_WHITE = "minutesWhite";
+    public static final String SP_SECONDS_WHITE = "secondsWhite";
+    public static final String SP_RECOVERSWICH_WHITE = "recoverSwitchWhite";
+    public static final String SP_RECOVER_WHITE = "recoverWhite";
+    public static final String SP_NAME_BLACK = "nameBlack";
+    public static final String SP_MINUTES_BLACK = "minutesBlack";
+    public static final String SP_SECONDS_BLACK = "secondsBlack";
+    public static final String SP_RECOVERSWICH_BLACK = "recoverSwitchBlack";
+    public static final String SP_RECOVER_BLACK = "recoverBlack";
+    public static final String SP_MOVE_COUNTER = "moveCounterCheckbox";
+    public static final String SP_DARK_MODE = "darkMode";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+
         //DARK/LIGHT MODE HEADER SECTION
+        if(isDarkModeOn() != sharedPreferences.getBoolean(SP_DARK_MODE, false))
+            setDarkModeOn(sharedPreferences.getBoolean(SP_DARK_MODE, false));
         if(isDarkModeOn())
             setTheme(R.style.DarkTheme);
         else
@@ -66,6 +86,7 @@ public class timerDatas extends AppCompatActivity {
             nightModeBtn.setVisibility(View.VISIBLE);
             lightModeBtn.setVisibility(View.INVISIBLE);
         }
+        visualiseInRUN("#########", "CIAOOOOOOOOOOOOOOOOOOOO");
 
         //prelevo le EditText
         nWEditText = findViewById(R.id.nameWhite);
@@ -138,15 +159,17 @@ public class timerDatas extends AppCompatActivity {
         nightModeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                setDarkModeOn(true);
             }
         });
         lightModeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                setDarkModeOn(false);
             }
         });
+
+        loadData();
     }
 
     //funzione che scorre alla attivita' del FisherTimer
@@ -162,6 +185,8 @@ public class timerDatas extends AppCompatActivity {
             showErrorToast();
             return -2;
         }
+
+        saveData();
 
         startActivity(intent);
 
@@ -268,7 +293,7 @@ public class timerDatas extends AppCompatActivity {
         }
     }
 
-    //c0ontrollo che i campi siano inferiori a 3 caratteri
+    //controllo che i campi siano inferiori a 3 caratteri
     private ArrayList<myException> validateCharLength() {
         ArrayList<myException> exceptions = new ArrayList<>();
 
@@ -345,8 +370,73 @@ public class timerDatas extends AppCompatActivity {
             StyleableToast.makeText(this, message, R.style.lightToast).show();
     }
 
+    /**
+     * DARK MODE SECTION
+     */
     //true se la dark mode e' attiva
     public static boolean isDarkModeOn() {
         return AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES;
+    }
+    //mette la darkmode on
+    private void setDarkModeOn(boolean setOn) {
+        if(setOn)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putBoolean(SP_DARK_MODE, isDarkModeOn());
+
+        editor.apply();
+    }
+
+    /**
+     * DATA STORAGE SECTION ############################################################################################################################################################
+     */
+    //save datas
+    private void saveData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        //White
+        editor.putString(SP_NAME_WHITE, nWEditText.getText().toString());
+        editor.putString(SP_MINUTES_WHITE, mWEditText.getText().toString());
+        editor.putString(SP_SECONDS_WHITE, sWEditText.getText().toString());
+        editor.putBoolean(SP_RECOVERSWICH_WHITE, recoverSwitchWhite.isChecked());
+        editor.putString(SP_RECOVER_WHITE, rWEditText.getText().toString());
+        //Black
+        editor.putString(SP_NAME_BLACK, nBEditText.getText().toString());
+        editor.putString(SP_MINUTES_BLACK, mBEditText.getText().toString());
+        editor.putString(SP_SECONDS_BLACK, sBEditText.getText().toString());
+        editor.putBoolean(SP_RECOVERSWICH_BLACK, recoverSwitchBlack.isChecked());
+        editor.putString(SP_RECOVER_BLACK, rBEditText.getText().toString());
+        //general
+        editor.putBoolean(SP_MOVE_COUNTER, moveCounterCheckBox.isChecked());
+        //editor.putBoolean(SP_DARK_MODE, isDarkModeOn());
+
+        editor.apply();
+
+        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
+    }
+    //load datas
+    private void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        //White
+        nWEditText.setText(sharedPreferences.getString(SP_NAME_WHITE, ""));
+        mWEditText.setText(sharedPreferences.getString(SP_MINUTES_WHITE, "10"), TextView.BufferType.EDITABLE);
+        sWEditText.setText(sharedPreferences.getString(SP_SECONDS_WHITE, "0"), TextView.BufferType.EDITABLE);
+        recoverSwitchWhite.setChecked(sharedPreferences.getBoolean(SP_RECOVERSWICH_WHITE, false));
+        rWEditText.setText(sharedPreferences.getString(SP_RECOVER_WHITE, "0"), TextView.BufferType.EDITABLE);
+        //Black
+        nBEditText.setText(sharedPreferences.getString(SP_NAME_BLACK, ""));
+        mBEditText.setText(sharedPreferences.getString(SP_MINUTES_BLACK, "10"), TextView.BufferType.EDITABLE);
+        sBEditText.setText(sharedPreferences.getString(SP_SECONDS_BLACK, "0"), TextView.BufferType.EDITABLE);
+        recoverSwitchBlack.setChecked(sharedPreferences.getBoolean(SP_RECOVERSWICH_BLACK, false));
+        rBEditText.setText(sharedPreferences.getString(SP_RECOVER_BLACK, "0"), TextView.BufferType.EDITABLE);
+        //general
+        moveCounterCheckBox.setChecked(sharedPreferences.getBoolean(SP_MOVE_COUNTER, false));
+        //setDarkModeOn(sharedPreferences.getBoolean(SP_DARK_MODE, false));
     }
 }
