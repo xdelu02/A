@@ -33,15 +33,25 @@ public class FisherTimer extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //DARK/LIGHT MODE HEADER SECTION
-        if(timerDatas.isDarkModeOn())
-            setTheme(R.style.DarkTheme);
-        else
-            setTheme(R.style.AppTheme);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
+        ImageButton resetBtn = findViewById ( R.id.resetBtn );
+        pauseBtn = findViewById ( R.id.pauseBtn );
+        ImageButton startBtn = findViewById ( R.id.playBtn );
+
+        if(timerDatas.isDarkModeOn()) {
+            setTheme(R.style.DarkTheme);
+            startBtn.setImageResource ( R.drawable.ic_play_arrow_white_55dp );
+            pauseBtn.setImageResource ( R.drawable.ic_pause_white_55dp );
+            resetBtn.setImageResource ( R.drawable.ic_refresh_white_55dp );
+        }
+        else {
+            setTheme ( R.style.AppTheme );
+            startBtn.setImageResource ( R.drawable.ic_play_arrow_black_55dp );
+            pauseBtn.setImageResource ( R.drawable.ic_pause_black_55dp );
+            resetBtn.setImageResource ( R.drawable.ic_refresh_black_55dp );
+        }
         topBtn = findViewById(R.id.topBtn);
         bottomBtn = findViewById(R.id.bottomBtn);
 
@@ -76,9 +86,6 @@ public class FisherTimer extends AppCompatActivity {
         bottom_timeLeft = bottom_START_TIME;
 
         contaMosse = 0;
-        ImageButton resetBtn = findViewById ( R.id.resetBtn );
-        pauseBtn = findViewById ( R.id.pauseBtn );
-        ImageButton startBtn = findViewById ( R.id.playBtn );
 
         uptadeCountDownText("top");
         uptadeCountDownText("bottom");

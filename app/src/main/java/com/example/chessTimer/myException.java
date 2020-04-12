@@ -4,23 +4,24 @@ public class myException extends Exception {
     private int code;
 
     //getter
-    public int getCode() {
+    int getCode() {
         return code;
     }
-    public String getMessange() {
+    String getMessange() {
         return super.getMessage();
     }
 
     //costruttore
-    public myException(String message) {
+    myException(String message) {
         super(message);
     }
-    public myException(String message, int code) {
+    myException(String message, int code) {
         super(message);
         this.code = code;
     }
 
-    //Override
+    @androidx.annotation.NonNull
+    /* Override */
     @Override
     public String toString() {
         return "****** " + super.getMessage() + " ******";

@@ -247,7 +247,7 @@
         android:layout_width="37dp"
         android:layout_height="37dp"
         android:background="@drawable/bg_transaprent"
-        android:drawableTop="@drawable/ic_brightness_7_black_24dp"
+        android:drawableTop="@drawable/ic_sole_24dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/nameWhite"
         app:layout_constraintEnd_toEndOf="parent"

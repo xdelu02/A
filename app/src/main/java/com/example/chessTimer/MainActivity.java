@@ -14,8 +14,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
         EasySplashScreen config = new EasySplashScreen(MainActivity.this)
                 .withFullScreen()
                 .withTargetActivity(timerDatas.class)
@@ -31,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         config.getFooterTextView().setTextColor(Color.WHITE);
         config.getBeforeLogoTextView().setTextColor(Color.WHITE);
         config.getAfterLogoTextView().setTextColor(Color.WHITE);
-
         View easySplashScreen = config.create();
         setContentView(easySplashScreen);
     }

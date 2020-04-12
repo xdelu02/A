@@ -10,38 +10,38 @@
         android:id="@+id/pauseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@drawable/bg_transaprent"
         android:contentDescription="@string/pause"
         app:layout_constraintBottom_toTopOf="@+id/bottomBtn"
         app:layout_constraintEnd_toStartOf="@+id/resetBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/playBtn"
         app:layout_constraintTop_toBottomOf="@+id/topBtn"
-        app:srcCompat="@drawable/pause" />
+        app:srcCompat="@drawable/ic_pause_black_55dp" />
 
     <ImageButton
         android:id="@+id/playBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@drawable/bg_transaprent"
         android:contentDescription="@string/play"
         app:layout_constraintEnd_toStartOf="@+id/pauseBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/pauseBtn"
-        app:srcCompat="@drawable/play" />
+        app:srcCompat="@drawable/ic_play_arrow_black_55dp" />
 
     <ImageButton
         android:id="@+id/resetBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@drawable/bg_transaprent"
         android:contentDescription="@string/restart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/pauseBtn"
         app:layout_constraintTop_toTopOf="@+id/pauseBtn"
-        app:srcCompat="@drawable/restart" />
+        app:srcCompat="@drawable/ic_refresh_black_55dp" />
 
     <Button
         android:id="@+id/topBtn"

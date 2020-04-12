@@ -68,9 +68,7 @@ public class timerDatas extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
 
-        boolean IS_DARK_MODE_ACTIVE = sharedPreferences.getBoolean(SP_DARK_MODE, false);
-
-        if(IS_DARK_MODE_ACTIVE) {
+        if(sharedPreferences.getBoolean(SP_DARK_MODE, false)) {
             setDarkModeOn ( true );
             setTheme ( R.style.DarkTheme );
         }
