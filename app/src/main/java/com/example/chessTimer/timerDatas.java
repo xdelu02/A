@@ -109,27 +109,24 @@ public class timerDatas extends AppCompatActivity {
 
         //con lo scorrere dello switch abilita e disabilita la parte del recupero
         //switch recupero bianco
-        final EditText recoverWhite = findViewById(R.id.recoverWhite);
         recoverSwitchWhite = findViewById(R.id.recoverSwitchWhite);
         recoverSwitchWhite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                    recoverWhite.setVisibility(View.VISIBLE);
-                else
-                    recoverWhite.setVisibility(View.INVISIBLE);
+                if(isChecked) rWEditText.setVisibility ( View.VISIBLE );
+
+                else rWEditText.setVisibility(View.INVISIBLE);
             }
         });
         //switch recupero nero
-        final EditText recoverBlack = findViewById(R.id.recoverBlack);
         recoverSwitchBlack = findViewById(R.id.recoverSwitchBlack);
         recoverSwitchBlack.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
-                    recoverBlack.setVisibility(View.VISIBLE);
+                    rBEditText.setVisibility(View.VISIBLE);
                 else
-                    recoverBlack.setVisibility(View.INVISIBLE);
+                    rBEditText.setVisibility(View.INVISIBLE);
             }
         });
 
