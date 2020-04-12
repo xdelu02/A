@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -60,22 +61,32 @@ public class FisherTimer extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        SharedPreferences sharedPreferences = getSharedPreferences(timerDatas.SHARED_PREFS, MODE_PRIVATE);
+
         TextView topName = findViewById(R.id.topName);
-        String tName = "    " + intent.getStringExtra(timerDatas.NAME_WHITE);
+        String tName = "    " + sharedPreferences.getString(timerDatas.SP_NAME_WHITE, "White");
         topName.setText(tName);
 
         TextView bottomName = findViewById(R.id.bottomName);
-        String btmName = "    " + intent.getStringExtra(timerDatas.NAME_BLACK);
+        String btmName = "    " + sharedPreferences.getString(timerDatas.SP_NAME_BLACK, "Black");
         bottomName.setText(btmName);
 
-        needMoveCounter = intent.getBooleanExtra ( timerDatas.MOVE_COUNTER, false);
+        needMoveCounter = sharedPreferences.getBoolean(timerDatas.SP_MOVE_COUNTER, false);
 
-        int minBottom = intent.getIntExtra(timerDatas.MINUTES_BLACK,0);
-        int minTop = intent.getIntExtra(timerDatas.MINUTES_WHITE,0);
-        int secBottom = intent.getIntExtra(timerDatas.SECONDS_BLACK,0);
-        int secTop = intent.getIntExtra(timerDatas.SECONDS_WHITE, 0);
-        int incrementoBottom_in_secondi = intent.getIntExtra(timerDatas.RECOVER_BLACK,0);
-        int incrementoTop_in_secondi = intent.getIntExtra(timerDatas.RECOVER_WHITE,0);
+        int minBottom = Integer.parseInt(sharedPreferences.getString(timerDatas.SP_MINUTES_BLACK, "10"));
+        int minTop = Integer.parseInt(sharedPreferences.getString(timerDatas.SP_MINUTES_WHITE, "10"));
+        int secBottom = Integer.parseInt(sharedPreferences.getString(timerDatas.SP_SECONDS_BLACK, "0"));
+        int secTop = Integer.parseInt(sharedPreferences.getString(timerDatas.SP_SECONDS_WHITE, "0"));
+        int incrementoBottom_in_secondi = Integer.parseInt(sharedPreferences.getString(timerDatas.SP_RECOVER_BLACK, "0"));
+        int incrementoTop_in_secondi = Integer.parseInt(sharedPreferences.getString(timerDatas.SP_RECOVER_WHITE, "0"));
+
+        //se lo switch non e' attivo e' necessatio portare il tempo di recupero a 0
+        if(!sharedPreferences.getBoolean(timerDatas.SP_RECOVERSWICH_WHITE, false)) {
+            incrementoTop_in_secondi = 0;
+        }
+        if(!sharedPreferences.getBoolean(timerDatas.SP_RECOVERSWICH_BLACK, false)) {
+            incrementoBottom_in_secondi = 0;
+        }
 
         top_START_TIME = (minTop * 60000) + (secTop * 1000) + 5;
         incrementoTop = incrementoTop_in_secondi * 1000;

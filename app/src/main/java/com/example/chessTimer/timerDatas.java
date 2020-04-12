@@ -20,16 +20,6 @@ import com.muddzdev.styleabletoastlibrary.StyleableToast;
 import java.util.ArrayList;
 
 public class timerDatas extends AppCompatActivity {
-    //percorsi
-    public static final String NAME_WHITE = "com.example.chessTimer.nameWhite";
-    public static final String MINUTES_WHITE = "com.example.chessTimer.minutesWhite";
-    public static final String SECONDS_WHITE = "com.example.chessTimer.secondsWhite";
-    public static final String RECOVER_WHITE = "com.example.chessTimer.recoverWhite";
-    public static final String NAME_BLACK = "com.example.chessTimer.nameBlack";
-    public static final String MINUTES_BLACK = "com.example.chessTimer.minutesBlack";
-    public static final String SECONDS_BLACK = "com.example.chessTimer.secondsBlack";
-    public static final String RECOVER_BLACK = "com.example.chessTimer.recoverBlack";
-    public static final String MOVE_COUNTER = "com.example.chessTimer.moveCounter";
 
     //dichiaro le EditText
     private EditText nWEditText;
@@ -69,8 +59,8 @@ public class timerDatas extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
 
         if(sharedPreferences.getBoolean(SP_DARK_MODE, false)) {
-            setDarkModeOn ( true );
-            setTheme ( R.style.DarkTheme );
+            setDarkModeOn(true);
+            setTheme(R.style.DarkTheme);
         }
 
         //DARK/LIGHT MODE VISIBILITY OF BTNS SECTION
@@ -84,7 +74,6 @@ public class timerDatas extends AppCompatActivity {
             nightModeBtn.setVisibility(View.VISIBLE);
             lightModeBtn.setVisibility(View.INVISIBLE);
         }
-        visualiseInRUN("#########", "CIAOOOOOOOOOOOOOOOOOOOO");
 
         //prelevo le EditText
         nWEditText = findViewById(R.id.nameWhite);
@@ -168,88 +157,24 @@ public class timerDatas extends AppCompatActivity {
     }
 
     //funzione che scorre alla attivita' del FisherTimer
-    public int goToTimer () {
+    public void goToTimer () {
         Intent intent = new Intent(this, FisherTimer.class);
 
         if(visualiseErrors(validateCharLength())) {
             showErrorToast();
-            return -1;
+            return;
         }
 
-        if(setExternalVariables(intent) < 0) {
+        if(visualiseErrors(validateTime())) {
             showErrorToast();
-            return -2;
+            return;
         }
 
         saveData();
 
         startActivity(intent);
-
-        return 0;
     }
 
-    //funzione che setta tutte le variabili da consegnare al FisherTimer
-    private int setExternalVariables(Intent intent) {
-        //dichiarazione delle variabili
-        String nameWhite = "White";
-        int minutesWhite = 10;
-        int secondsWhite = 0;
-        int recuperoWhite = 0;
-        String nameBlack = "Black";
-        int minutesBlack = 10;
-        int secondsBlack = 0;
-        int recuperoBlack = 0;
-
-        //Se le edit text hanno un valore al loro interno copio il valore nella variabile corrispondente
-        //Altrimenti lascio quelli preimpostati in testa
-        if(!nWEditText.getText().toString().equals("")) //nome White
-            nameWhite = nWEditText.getText().toString();
-        if(!mWEditText.getText().toString().equals("")) //minuti White
-            minutesWhite = Integer.parseInt(mWEditText.getText().toString());
-        if(!sWEditText.getText().toString().equals("")) //secondi White
-            secondsWhite = Integer.parseInt(sWEditText.getText().toString());
-        if(!rWEditText.getText().toString().equals("") && recoverSwitchWhite.isChecked()) //recupero White
-            recuperoWhite = Integer.parseInt(rWEditText.getText().toString());
-        if(!nBEditText.getText().toString().equals("")) //nome Black
-            nameBlack = nBEditText.getText().toString();
-        if(!mBEditText.getText().toString().equals("")) //minuti Black
-            minutesBlack = Integer.parseInt(mBEditText.getText().toString());
-        if(!sBEditText.getText().toString().equals("")) //secondi Black
-            secondsBlack = Integer.parseInt(sBEditText.getText().toString());
-        if(!rBEditText.getText().toString().equals("") && recoverSwitchBlack.isChecked()) //recupero Black
-            recuperoBlack = Integer.parseInt(rBEditText.getText().toString());
-
-        //controllo la validita' degli intervalli del tempo messo dall'user
-        if(visualiseErrors(validateTime(minutesWhite, secondsWhite, recuperoWhite, minutesBlack, secondsBlack, recuperoBlack)))
-            return -2;
-
-        //visualizzo su "RUN" i dati passati
-        visualiseInRUN("nameWhite ", "" + nameWhite);
-        visualiseInRUN("minutesWhite ", "" + minutesWhite);
-        visualiseInRUN("secondsWhite ", "" + secondsWhite);
-        visualiseInRUN("recoverWhite ", "" + recuperoWhite);
-        visualiseInRUN("nameBlack ", "" + nameBlack);
-        visualiseInRUN("minutesBlack ", "" + minutesBlack);
-        visualiseInRUN("secondsBlack ", "" + secondsBlack);
-        visualiseInRUN("recoverBlack ", "" + recuperoBlack);
-        if(moveCounterCheckBox.isChecked())
-            visualiseInRUN("contaMosse ", "true");
-        else
-            visualiseInRUN("contaMosse ", "false");
-
-        //Aggiungo le variabili come extra
-        intent.putExtra(NAME_WHITE, nameWhite);
-        intent.putExtra(MINUTES_WHITE, minutesWhite);
-        intent.putExtra(SECONDS_WHITE, secondsWhite);
-        intent.putExtra(RECOVER_WHITE, recuperoWhite);
-        intent.putExtra(NAME_BLACK, nameBlack);
-        intent.putExtra(MINUTES_BLACK, minutesBlack);
-        intent.putExtra(SECONDS_BLACK, secondsBlack);
-        intent.putExtra(RECOVER_BLACK, recuperoBlack);
-        intent.putExtra(MOVE_COUNTER, moveCounterCheckBox.isChecked());
-
-        return 1;
-    }
 
     //metodo provvisorio
     private void visualiseInRUN(String tag, String str) {
@@ -309,20 +234,20 @@ public class timerDatas extends AppCompatActivity {
     }
 
     //controllo che il tempo non superi il limite massimo di 59:59
-    private ArrayList<myException> validateTime(int minutesWhite, int secondsWhite, int recuperoWhite, int minutesBlack, int secondsBlack, int recuperoBlack) {
+    private ArrayList<myException> validateTime() {
         ArrayList<myException> exceptions = new ArrayList<>();
 
-        if(minutesWhite > 59)
+        if(Integer.parseInt(mWEditText.getText().toString()) > 59)
             exceptions.add(new myException("Out of bounds", 1));
-        if(secondsWhite > 59)
+        if(Integer.parseInt(sWEditText.getText().toString()) > 59)
             exceptions.add(new myException("Out of bounds", 2));
-        if(recuperoWhite > 59)
+        if(Integer.parseInt(rWEditText.getText().toString()) > 59)
             exceptions.add(new myException("Out of bounds", 3));
-        if(minutesBlack > 59)
+        if(Integer.parseInt(mBEditText.getText().toString()) > 59)
             exceptions.add(new myException("Out of bounds", 4));
-        if(secondsBlack > 59)
+        if(Integer.parseInt(sBEditText.getText().toString()) > 59)
             exceptions.add(new myException("Out of bounds", 5));
-        if(recuperoBlack > 59)
+        if(Integer.parseInt(rBEditText.getText().toString()) > 59)
             exceptions.add(new myException("Out of bounds", 6));
 
         return exceptions;
@@ -388,7 +313,7 @@ public class timerDatas extends AppCompatActivity {
     }
 
     /**
-     * DATA STORAGE SECTION ############################################################################################################################################################
+     * DATA STORAGE SECTION
      */
     //save datas
     private void saveData() {
@@ -396,20 +321,25 @@ public class timerDatas extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         //White
-        editor.putString(SP_NAME_WHITE, nWEditText.getText().toString());
+        if(!nWEditText.getText().toString().equals(""))
+            editor.putString(SP_NAME_WHITE, nWEditText.getText().toString());
+        else
+            editor.putString(SP_NAME_WHITE, "White");
         editor.putString(SP_MINUTES_WHITE, mWEditText.getText().toString());
         editor.putString(SP_SECONDS_WHITE, sWEditText.getText().toString());
         editor.putBoolean(SP_RECOVERSWICH_WHITE, recoverSwitchWhite.isChecked());
         editor.putString(SP_RECOVER_WHITE, rWEditText.getText().toString());
         //Black
-        editor.putString(SP_NAME_BLACK, nBEditText.getText().toString());
+        if(!nBEditText.getText().toString().equals(""))
+            editor.putString(SP_NAME_BLACK, nBEditText.getText().toString());
+        else
+            editor.putString(SP_NAME_BLACK, "Black");
         editor.putString(SP_MINUTES_BLACK, mBEditText.getText().toString());
         editor.putString(SP_SECONDS_BLACK, sBEditText.getText().toString());
         editor.putBoolean(SP_RECOVERSWICH_BLACK, recoverSwitchBlack.isChecked());
         editor.putString(SP_RECOVER_BLACK, rBEditText.getText().toString());
         //general
         editor.putBoolean(SP_MOVE_COUNTER, moveCounterCheckBox.isChecked());
-        //editor.putBoolean(SP_DARK_MODE, isDarkModeOn());
 
         editor.apply();
 
@@ -419,19 +349,24 @@ public class timerDatas extends AppCompatActivity {
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         //White
-        nWEditText.setText(sharedPreferences.getString(SP_NAME_WHITE, ""));
+        if(!nWEditText.getText().toString().equals(""))
+            nWEditText.setText(sharedPreferences.getString(SP_NAME_WHITE, ""));
+        else
+            nWEditText.setText("");
         mWEditText.setText(sharedPreferences.getString(SP_MINUTES_WHITE, "10"), TextView.BufferType.EDITABLE);
         sWEditText.setText(sharedPreferences.getString(SP_SECONDS_WHITE, "0"), TextView.BufferType.EDITABLE);
         recoverSwitchWhite.setChecked(sharedPreferences.getBoolean(SP_RECOVERSWICH_WHITE, false));
         rWEditText.setText(sharedPreferences.getString(SP_RECOVER_WHITE, "0"), TextView.BufferType.EDITABLE);
         //Black
-        nBEditText.setText(sharedPreferences.getString(SP_NAME_BLACK, ""));
+        if(!nBEditText.getText().toString().equals(""))
+            nBEditText.setText(sharedPreferences.getString(SP_NAME_BLACK, ""));
+        else
+            nBEditText.setText("");
         mBEditText.setText(sharedPreferences.getString(SP_MINUTES_BLACK, "10"), TextView.BufferType.EDITABLE);
         sBEditText.setText(sharedPreferences.getString(SP_SECONDS_BLACK, "0"), TextView.BufferType.EDITABLE);
         recoverSwitchBlack.setChecked(sharedPreferences.getBoolean(SP_RECOVERSWICH_BLACK, false));
         rBEditText.setText(sharedPreferences.getString(SP_RECOVER_BLACK, "0"), TextView.BufferType.EDITABLE);
         //general
         moveCounterCheckBox.setChecked(sharedPreferences.getBoolean(SP_MOVE_COUNTER, false));
-        //setDarkModeOn(sharedPreferences.getBoolean(SP_DARK_MODE, false));
     }
 }
