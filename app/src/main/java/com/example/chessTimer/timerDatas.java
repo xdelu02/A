@@ -62,18 +62,18 @@ public class timerDatas extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-
-        //DARK/LIGHT MODE HEADER SECTION
-        if(isDarkModeOn() != sharedPreferences.getBoolean(SP_DARK_MODE, false))
-            setDarkModeOn(sharedPreferences.getBoolean(SP_DARK_MODE, false));
-        if(isDarkModeOn())
-            setTheme(R.style.DarkTheme);
-        else
-            setTheme(R.style.AppTheme);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_datas);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+
+        boolean IS_DARK_MODE_ACTIVE = sharedPreferences.getBoolean(SP_DARK_MODE, false);
+
+        if(IS_DARK_MODE_ACTIVE) {
+            setDarkModeOn ( true );
+            setTheme ( R.style.DarkTheme );
+        }
 
         //DARK/LIGHT MODE VISIBILITY OF BTNS SECTION
         Button nightModeBtn = findViewById(R.id.nightModeBtn);
