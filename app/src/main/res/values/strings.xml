@@ -15,6 +15,6 @@
     <string name="submit">submit</string>
     <string name="black">Black</string>
     <string name="duobleDot">:</string>
-    <string name="erase">erase</string>
+    <string name="restore">restore</string>
     <string name="settings">Settings</string>
 </resources>

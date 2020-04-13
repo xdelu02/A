@@ -153,15 +153,11 @@ public class timerDatas extends AppCompatActivity {
         });
 
         //Btn erase
-        final Button eraseBtn = findViewById(R.id.eraseBtn);
+        final Button eraseBtn = findViewById(R.id.restoreBtn);
         eraseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearAllFilds();
-
-                recoverSwitchWhite.setChecked(false);
-                recoverSwitchBlack.setChecked(false);
-                moveCounterCheckBox.setChecked(false);
+                loadData();
             }
         });
 

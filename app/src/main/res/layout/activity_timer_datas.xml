@@ -212,12 +212,12 @@
         app:layout_constraintVertical_bias="0.120000005" />
 
     <Button
-        android:id="@+id/eraseBtn"
+        android:id="@+id/restoreBtn"
         android:layout_width="89dp"
         android:layout_height="45dp"
         android:background="@drawable/btn_bg_erase"
 
-        android:text="@string/erase"
+        android:text="@string/restore"
         android:textColor="#F44336"
 
         app:layout_constraintBottom_toBottomOf="@+id/goToTimerBtn"
