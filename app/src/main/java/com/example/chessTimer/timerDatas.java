@@ -5,13 +5,13 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.util.Log;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,14 +53,40 @@ public class timerDatas extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        if(isDarkModeOn())
+            setTheme(R.style.DarkTheme);
+        else
+            setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_datas);
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if(sharedPreferences.getBoolean(SP_DARK_MODE, false)) {
+        boolean firstLoad = sharedPreferences.getBoolean("firstLoad", true);
+
+        if(firstLoad) {
+            editor.putBoolean("firstLoad", true);
+            editor.apply();
+        }
+
+        boolean defNight = false;
+
+        int nightModeFlags = getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                defNight = true;
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                defNight = false;
+                break;
+        }
+
+        if(sharedPreferences.getBoolean(SP_DARK_MODE, false) || (defNight && firstLoad)) {
+            editor.putBoolean("firstLoad", false);
+            editor.apply();
             setDarkModeOn(true);
-            setTheme(R.style.DarkTheme);
         }
 
         //DARK/LIGHT MODE VISIBILITY OF BTNS SECTION
@@ -175,12 +201,6 @@ public class timerDatas extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    //metodo provvisorio
-    private void visualiseInRUN(String tag, String str) {
-        Log.d(tag, str);
-    }
-
     private boolean visualiseErrors(ArrayList<myException> exceptions) {
         if(exceptions.size() > 0) {
             for (myException e : exceptions)
@@ -271,13 +291,13 @@ public class timerDatas extends AppCompatActivity {
     //clear all filds
     private void clearAllFilds() {
         nWEditText.setText("");
-        mWEditText.setText("");
-        sWEditText.setText("");
-        rWEditText.setText("");
+        mWEditText.setText("0");
+        sWEditText.setText("0");
+        rWEditText.setText("0");
         nBEditText.setText("");
-        mBEditText.setText("");
-        sBEditText.setText("");
-        rBEditText.setText("");
+        mBEditText.setText("0");
+        sBEditText.setText("0");
+        rBEditText.setText("0");
     }
 
     //personalized toast
