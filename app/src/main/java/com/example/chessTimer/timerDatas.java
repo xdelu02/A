@@ -284,18 +284,6 @@ public class timerDatas extends AppCompatActivity {
             throw new myException("Length grater than 2", 6);
     }
 
-    //clear all filds
-    private void clearAllFilds() {
-        nWEditText.setText("White");
-        mWEditText.setText("10", TextView.BufferType.EDITABLE);
-        sWEditText.setText("0", TextView.BufferType.EDITABLE);
-        rWEditText.setText("0", TextView.BufferType.EDITABLE);
-        nBEditText.setText("Black");
-        mBEditText.setText("10", TextView.BufferType.EDITABLE);
-        sBEditText.setText("0", TextView.BufferType.EDITABLE);
-        rBEditText.setText("0", TextView.BufferType.EDITABLE);
-    }
-
     //personalized toast
     private void showErrorToast() {
         String message = "You made error in timer parameters!";
