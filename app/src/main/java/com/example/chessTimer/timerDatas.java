@@ -101,7 +101,7 @@ public class timerDatas extends AppCompatActivity {
             lightModeBtn.setVisibility(View.INVISIBLE);
         }
 
-        //prelevo le EditText
+        //setto le EditText
         nWEditText = findViewById(R.id.nameWhite);
         mWEditText = findViewById(R.id.minuteWhite);
         sWEditText = findViewById(R.id.secondWhite);
@@ -152,9 +152,9 @@ public class timerDatas extends AppCompatActivity {
             }
         });
 
-        //Btn erase
-        final Button eraseBtn = findViewById(R.id.restoreBtn);
-        eraseBtn.setOnClickListener(new View.OnClickListener() {
+        //Btn restore
+        final Button restoreBtn = findViewById(R.id.restoreBtn);
+        restoreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadData();
@@ -168,6 +168,7 @@ public class timerDatas extends AppCompatActivity {
                 setDarkModeOn(true);
             }
         });
+        //Btn for LightMode
         lightModeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,6 +200,10 @@ public class timerDatas extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     *  FORM'S ERROR SECTION
+     */
+    //Visualizza gli errori di un array
     private boolean visualiseErrors(ArrayList<myException> exceptions) {
         if(exceptions.size() > 0) {
             for (myException e : exceptions)
@@ -208,6 +213,7 @@ public class timerDatas extends AppCompatActivity {
         return false;
     }
 
+    //Visualizza l'errore passato in input
     private void visualiseError(myException exception) {
         switch(exception.getCode()) {
             case 1:
@@ -231,6 +237,7 @@ public class timerDatas extends AppCompatActivity {
         }
     }
 
+    //Rimuove tutti gli errori
     private void removeError() {
         mWEditText.setError(null);
         sWEditText.setError(null);
