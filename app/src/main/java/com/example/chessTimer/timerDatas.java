@@ -290,14 +290,14 @@ public class timerDatas extends AppCompatActivity {
 
     //clear all filds
     private void clearAllFilds() {
-        nWEditText.setText("");
-        mWEditText.setText("0");
-        sWEditText.setText("0");
-        rWEditText.setText("0");
-        nBEditText.setText("");
-        mBEditText.setText("0");
-        sBEditText.setText("0");
-        rBEditText.setText("0");
+        nWEditText.setText("White");
+        mWEditText.setText("10", TextView.BufferType.EDITABLE);
+        sWEditText.setText("0", TextView.BufferType.EDITABLE);
+        rWEditText.setText("0", TextView.BufferType.EDITABLE);
+        nBEditText.setText("Black");
+        mBEditText.setText("10", TextView.BufferType.EDITABLE);
+        sBEditText.setText("0", TextView.BufferType.EDITABLE);
+        rBEditText.setText("0", TextView.BufferType.EDITABLE);
     }
 
     //personalized toast
@@ -369,19 +369,13 @@ public class timerDatas extends AppCompatActivity {
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         //White
-        if(!nWEditText.getText().toString().equals(""))
-            nWEditText.setText(sharedPreferences.getString(SP_NAME_WHITE, ""));
-        else
-            nWEditText.setText("");
+        nWEditText.setText(sharedPreferences.getString(SP_NAME_WHITE, "White"));
         mWEditText.setText(sharedPreferences.getString(SP_MINUTES_WHITE, "10"), TextView.BufferType.EDITABLE);
         sWEditText.setText(sharedPreferences.getString(SP_SECONDS_WHITE, "0"), TextView.BufferType.EDITABLE);
         recoverSwitchWhite.setChecked(sharedPreferences.getBoolean(SP_RECOVERSWICH_WHITE, false));
         rWEditText.setText(sharedPreferences.getString(SP_RECOVER_WHITE, "0"), TextView.BufferType.EDITABLE);
         //Black
-        if(!nBEditText.getText().toString().equals(""))
-            nBEditText.setText(sharedPreferences.getString(SP_NAME_BLACK, ""));
-        else
-            nBEditText.setText("");
+        nBEditText.setText(sharedPreferences.getString(SP_NAME_BLACK, "Black"));
         mBEditText.setText(sharedPreferences.getString(SP_MINUTES_BLACK, "10"), TextView.BufferType.EDITABLE);
         sBEditText.setText(sharedPreferences.getString(SP_SECONDS_BLACK, "0"), TextView.BufferType.EDITABLE);
         recoverSwitchBlack.setChecked(sharedPreferences.getBoolean(SP_RECOVERSWICH_BLACK, false));
