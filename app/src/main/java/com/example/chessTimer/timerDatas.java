@@ -194,6 +194,8 @@ public class timerDatas extends AppCompatActivity {
 
         saveData();
 
+        removeError();
+
         startActivity(intent);
     }
 
@@ -227,6 +229,15 @@ public class timerDatas extends AppCompatActivity {
                 rBEditText.setError(exception.getMessange());
                 break;
         }
+    }
+
+    private void removeError() {
+        mWEditText.setError(null);
+        sWEditText.setError(null);
+        rWEditText.setError(null);
+        mBEditText.setError(null);
+        sBEditText.setError(null);
+        rBEditText.setError(null);
     }
 
     //controllo che i campi siano inferiori a 3 caratteri
@@ -265,6 +276,14 @@ public class timerDatas extends AppCompatActivity {
             exceptions.add(new myException("Out of bounds", 5));
         if(Integer.parseInt(rBEditText.getText().toString()) > 59)
             exceptions.add(new myException("Out of bounds", 6));
+        if(Integer.parseInt(mWEditText.getText().toString()) == 0 && Integer.parseInt(sWEditText.getText().toString()) == 0) {
+            exceptions.add(new myException("must be different than 0:0", 1));
+            exceptions.add(new myException("must be different than 0:0", 2));
+        }
+        if(Integer.parseInt(mBEditText.getText().toString()) == 0 && Integer.parseInt(sBEditText.getText().toString()) == 0) {
+            exceptions.add(new myException("must be different than 0:0", 4));
+            exceptions.add(new myException("must be different than 0:0", 5));
+        }
 
         return exceptions;
     }
