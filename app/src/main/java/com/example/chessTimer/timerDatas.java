@@ -372,8 +372,6 @@ public class timerDatas extends AppCompatActivity {
         editor.putBoolean(SP_MOVE_COUNTER, moveCounterCheckBox.isChecked());
 
         editor.apply();
-
-        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
     }
     //load datas
     private void loadData() {
