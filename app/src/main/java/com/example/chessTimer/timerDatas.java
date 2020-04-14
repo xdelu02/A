@@ -148,7 +148,7 @@ public class timerDatas extends AppCompatActivity {
         moveCounterCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                
+
             }
         });
 
