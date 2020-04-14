@@ -1,12 +1,10 @@
 package com.example.chessTimer;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -31,6 +29,10 @@ public class FisherTimer extends AppCompatActivity {
     private boolean isBottomTimerRunning;
     private boolean lastTimerRunning; // false:top
     private boolean needMoveCounter;
+    private int colorIsMyTurn;
+    private int colorIsNotMyTurn;
+    private int colorTextIsMyTurn;
+    private int colorTextIsNotMyTurn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +48,20 @@ public class FisherTimer extends AppCompatActivity {
             startBtn.setImageResource ( R.drawable.ic_play_arrow_white_55dp );
             pauseBtn.setImageResource ( R.drawable.ic_pause_white_55dp );
             resetBtn.setImageResource ( R.drawable.ic_refresh_white_55dp );
+            colorIsMyTurn = 0xff2735ff;    // 0xff4169e1
+            colorIsNotMyTurn = 0xff5a595a;
+            colorTextIsMyTurn = 0x99000000;
+            colorTextIsNotMyTurn = 0xfffafafa;
         }
         else {
             setTheme ( R.style.AppTheme );
             startBtn.setImageResource ( R.drawable.ic_play_arrow_black_55dp );
             pauseBtn.setImageResource ( R.drawable.ic_pause_black_55dp );
             resetBtn.setImageResource ( R.drawable.ic_refresh_black_55dp );
+            colorIsMyTurn = 0xff4169e1;
+            colorIsNotMyTurn = 0xffd6d7d7;
+            colorTextIsMyTurn = 0xfffafafa;
+            colorTextIsNotMyTurn = 0xff000000;
         }
         topBtn = findViewById(R.id.topBtn);
         bottomBtn = findViewById(R.id.bottomBtn);
@@ -59,11 +69,10 @@ public class FisherTimer extends AppCompatActivity {
         isBottomTimerRunning = false;
         isTopTimerRunning = false;
 
-        Intent intent = getIntent();
 
         SharedPreferences sharedPreferences = getSharedPreferences(timerDatas.SHARED_PREFS, MODE_PRIVATE);
 
-        TextView topName = findViewById(R.id.topName);
+        final TextView topName = findViewById(R.id.topName);
         String tName = "    " + sharedPreferences.getString(timerDatas.SP_NAME_WHITE, "White");
         topName.setText(tName);
 
@@ -108,6 +117,7 @@ public class FisherTimer extends AppCompatActivity {
                 startTimer("bottom");
                 topBtn.setClickable(false);
                 bottomBtn.setClickable(true);
+                changeFontAndColor();
                 ++contaMosse;
             }
         });
@@ -119,6 +129,7 @@ public class FisherTimer extends AppCompatActivity {
                 startTimer("top");
                 bottomBtn.setClickable(false);
                 topBtn.setClickable(true);
+                changeFontAndColor();
                 ++contaMosse;
             }
         });
@@ -165,7 +176,7 @@ public class FisherTimer extends AppCompatActivity {
             top_countDownTimer = new CountDownTimer(top_timeLeft, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    top_timeLeft = millisUntilFinished;
+                    top_timeLeft = millisUntilFinished+2;
                     uptadeCountDownText("top");
                 }
 
@@ -183,7 +194,7 @@ public class FisherTimer extends AppCompatActivity {
             bottom_countDownTimer = new CountDownTimer(bottom_timeLeft, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    bottom_timeLeft = millisUntilFinished;
+                    bottom_timeLeft = millisUntilFinished+2;
                     uptadeCountDownText("bottom");
                 }
 
@@ -233,6 +244,8 @@ public class FisherTimer extends AppCompatActivity {
 
         bottomBtn.setClickable(true);
         topBtn.setClickable(true);
+
+        resetColorAndFonts();
     }
 
     private void uptadeCountDownText(String pos) {
@@ -260,5 +273,32 @@ public class FisherTimer extends AppCompatActivity {
             topMoveCounter.setText ( String.format ( Locale.getDefault (),"    Move: %d",contaMosse ));
             bottomMoveCounter.setText ( String.format ( Locale.getDefault (),"    Move: %d",contaMosse ));
         }
+    }
+
+    private void changeFontAndColor(){
+        if(isTopTimerRunning) {
+            bottomBtn.setBackgroundColor ( colorIsNotMyTurn );
+            topBtn.setBackgroundColor ( colorIsMyTurn );
+            topBtn.setTextSize( TypedValue.COMPLEX_UNIT_SP, 82);
+            bottomBtn.setTextSize( TypedValue.COMPLEX_UNIT_SP, 63);
+            topBtn.setTextColor ( colorTextIsMyTurn );
+            bottomBtn.setTextColor ( colorTextIsNotMyTurn );
+        }else {
+            topBtn.setBackgroundColor ( colorIsNotMyTurn );
+            bottomBtn.setBackgroundColor ( colorIsMyTurn );
+            bottomBtn.setTextSize( TypedValue.COMPLEX_UNIT_SP, 82);
+            topBtn.setTextSize( TypedValue.COMPLEX_UNIT_SP, 63);
+            topBtn.setTextColor ( colorTextIsNotMyTurn );
+            bottomBtn.setTextColor ( colorTextIsMyTurn );
+        }
+    }
+
+    private void resetColorAndFonts(){
+        topBtn.setTextColor(colorTextIsNotMyTurn);
+        bottomBtn.setTextColor(colorTextIsNotMyTurn);
+        topBtn.setTextSize (TypedValue.COMPLEX_UNIT_SP, 63 );
+        bottomBtn.setTextSize (TypedValue.COMPLEX_UNIT_SP, 63 );
+        topBtn.setBackgroundColor ( colorIsNotMyTurn );
+        bottomBtn.setBackgroundColor ( colorIsNotMyTurn );
     }
 }
