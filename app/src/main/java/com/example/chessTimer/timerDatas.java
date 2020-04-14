@@ -101,7 +101,7 @@ public class timerDatas extends AppCompatActivity {
             lightModeBtn.setVisibility(View.INVISIBLE);
         }
 
-        //prelevo le EditText
+        //setto le EditText
         nWEditText = findViewById(R.id.nameWhite);
         mWEditText = findViewById(R.id.minuteWhite);
         sWEditText = findViewById(R.id.secondWhite);
@@ -152,16 +152,12 @@ public class timerDatas extends AppCompatActivity {
             }
         });
 
-        //Btn erase
-        final Button eraseBtn = findViewById(R.id.eraseBtn);
-        eraseBtn.setOnClickListener(new View.OnClickListener() {
+        //Btn restore
+        final Button restoreBtn = findViewById(R.id.restoreBtn);
+        restoreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearAllFilds();
-
-                recoverSwitchWhite.setChecked(false);
-                recoverSwitchBlack.setChecked(false);
-                moveCounterCheckBox.setChecked(false);
+                loadData();
             }
         });
 
@@ -172,6 +168,7 @@ public class timerDatas extends AppCompatActivity {
                 setDarkModeOn(true);
             }
         });
+        //Btn for LightMode
         lightModeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,9 +195,15 @@ public class timerDatas extends AppCompatActivity {
 
         saveData();
 
+        removeError();
+
         startActivity(intent);
     }
 
+    /**
+     *  FORM'S ERROR SECTION
+     */
+    //Visualizza gli errori di un array
     private boolean visualiseErrors(ArrayList<myException> exceptions) {
         if(exceptions.size() > 0) {
             for (myException e : exceptions)
@@ -210,6 +213,7 @@ public class timerDatas extends AppCompatActivity {
         return false;
     }
 
+    //Visualizza l'errore passato in input
     private void visualiseError(myException exception) {
         switch(exception.getCode()) {
             case 1:
@@ -231,6 +235,16 @@ public class timerDatas extends AppCompatActivity {
                 rBEditText.setError(exception.getMessange());
                 break;
         }
+    }
+
+    //Rimuove tutti gli errori
+    private void removeError() {
+        mWEditText.setError(null);
+        sWEditText.setError(null);
+        rWEditText.setError(null);
+        mBEditText.setError(null);
+        sBEditText.setError(null);
+        rBEditText.setError(null);
     }
 
     //controllo che i campi siano inferiori a 3 caratteri
@@ -269,6 +283,14 @@ public class timerDatas extends AppCompatActivity {
             exceptions.add(new myException("Out of bounds", 5));
         if(Integer.parseInt(rBEditText.getText().toString()) > 59)
             exceptions.add(new myException("Out of bounds", 6));
+        if(Integer.parseInt(mWEditText.getText().toString()) == 0 && Integer.parseInt(sWEditText.getText().toString()) == 0) {
+            exceptions.add(new myException("must be different than 0:0", 1));
+            exceptions.add(new myException("must be different than 0:0", 2));
+        }
+        if(Integer.parseInt(mBEditText.getText().toString()) == 0 && Integer.parseInt(sBEditText.getText().toString()) == 0) {
+            exceptions.add(new myException("must be different than 0:0", 4));
+            exceptions.add(new myException("must be different than 0:0", 5));
+        }
 
         return exceptions;
     }
@@ -286,18 +308,6 @@ public class timerDatas extends AppCompatActivity {
             throw new myException("Length grater than 2", 5);
         if(rBEditText.length() > 2)
             throw new myException("Length grater than 2", 6);
-    }
-
-    //clear all filds
-    private void clearAllFilds() {
-        nWEditText.setText("White");
-        mWEditText.setText("10", TextView.BufferType.EDITABLE);
-        sWEditText.setText("0", TextView.BufferType.EDITABLE);
-        rWEditText.setText("0", TextView.BufferType.EDITABLE);
-        nBEditText.setText("Black");
-        mBEditText.setText("10", TextView.BufferType.EDITABLE);
-        sBEditText.setText("0", TextView.BufferType.EDITABLE);
-        rBEditText.setText("0", TextView.BufferType.EDITABLE);
     }
 
     //personalized toast
