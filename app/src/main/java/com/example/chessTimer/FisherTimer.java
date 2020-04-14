@@ -73,12 +73,10 @@ public class FisherTimer extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(timerDatas.SHARED_PREFS, MODE_PRIVATE);
 
         final TextView topName = findViewById(R.id.topName);
-        String tName = "    " + sharedPreferences.getString(timerDatas.SP_NAME_WHITE, "White");
-        topName.setText(tName);
+        topName.setText(sharedPreferences.getString(timerDatas.SP_NAME_WHITE, "White"));
 
         TextView bottomName = findViewById(R.id.bottomName);
-        String btmName = "    " + sharedPreferences.getString(timerDatas.SP_NAME_BLACK, "Black");
-        bottomName.setText(btmName);
+        bottomName.setText(sharedPreferences.getString(timerDatas.SP_NAME_BLACK, "Black"));
 
         needMoveCounter = sharedPreferences.getBoolean(timerDatas.SP_MOVE_COUNTER, false);
 
@@ -270,8 +268,8 @@ public class FisherTimer extends AppCompatActivity {
             TextView topMoveCounter = findViewById ( R.id.topMoveCounter );
             TextView bottomMoveCounter = findViewById ( R.id.bottomMoveCounter );
 
-            topMoveCounter.setText ( String.format ( Locale.getDefault (),"    Move: %d",contaMosse ));
-            bottomMoveCounter.setText ( String.format ( Locale.getDefault (),"    Move: %d",contaMosse ));
+            topMoveCounter.setText ( String.format ( Locale.getDefault (),"Move: %d",contaMosse ));
+            bottomMoveCounter.setText ( String.format ( Locale.getDefault (),"Move: %d",contaMosse ));
         }
     }
 
